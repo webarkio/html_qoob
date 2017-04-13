@@ -15,8 +15,7 @@ var server = http.createServer(onRequest)
 // start the server
 server.listen(process.env.port || 8000)
 
-// log to the console that we are listening
-console.log('Local qoob http server running at http://localhost:' + (process.env.PORT || 8000))
+console.log('Local Http Qoob Server Running at http://localhost:' + (process.env.PORT || 8000))
 
 var pathToPageData = 'data/pages/';
 var pathToEmptyPageData = 'data/pages/empty.json';
@@ -27,8 +26,6 @@ var pathToQoobDashboard = 'data/html/dashboard.html';
 function onRequest(req, res) {
     
     var currentUrl = url.parse(req.url, true);
-
-
 
 	if (currentUrl.pathname === "/qoob/"){
 		res.writeHead(302, {
@@ -46,7 +43,7 @@ function onRequest(req, res) {
             for (var i = 0; i < files.length; i++) {
                 if(files[i]!=='empty.json'){
                     page = files[i].replace('.json', '');
-                    content=content+'<tr><td>'+page+'</td><td><a href="'+page+'.html?edit">Edit</a></td><td><a href="'+page+'.html">View</a></td></tr>';
+                    content=content+'<tr><td>'+page+'</td><td><a href="'+page+'.html?edit">Edit</a></td><td><a href="'+page+'.html">View</a></td><td><a href="'+page+'.html?delete">Delete</a></td></tr>';
                 }
             }
             content=content+'</table>';
@@ -56,8 +53,6 @@ function onRequest(req, res) {
             });        
 
         });
-
-
         return;
     }
 
@@ -82,6 +77,16 @@ function onRequest(req, res) {
         return;
     }
 
+    if (typeof currentUrl.query.delete !== 'undefined') {
+        var page = currentUrl.pathname.replace('.html','').replace('/','');
+        fs.unlink(pathToPageData+page+".json");
+        fs.unlink(page+".html");
+        res.writeHead(302, {
+          'Location': '/qoob'
+        });
+        res.end();
+        return;
+    }
 
     if (req.method == "POST") {
         //Save page data
@@ -117,7 +122,6 @@ function onRequest(req, res) {
                     for (var i = 0; i < data.libs.length; i++) {
                         var libUrl = data.libs[i].url.replace(/\/+$/g, '') + "/";
                         for (var j = 0; j < data.libs[i].res.length; j++) {
-                            console.log(data.libs[i].res[j]);
                             if (data.libs[i].res[j].src.indexOf("http://") !== 0 && data.libs[i].res[j].src.indexOf("https://") !== 0) {
                                 data.libs[i].res[j].src = libUrl + data.libs[i].res[j].src.replace(/^\/+/g, ''); //Trim slashes in the begining
                             }                            
@@ -142,7 +146,6 @@ function onRequest(req, res) {
                             }
                         });
 
-                        console.log('complete');
                     });
                     loader.start();
 
@@ -162,28 +165,6 @@ function onRequest(req, res) {
                 var data = JSON.parse(body);
 
                 fs.writeFile("data/templates.json", JSON.stringify(data), function(err) {
-                    if (err) {
-                        return console.log(err);
-                    }
-                    res.statusCode = 200;
-                    res.setHeader('Content-Type', 'text/json');
-                    res.write('{"success": true}');
-                    res.end();
-                });
-            });
-        }
-
-        //Save libraries
-        if (req.url === "/save-labraries") {
-            var body = '';
-            req.on('data', function(data) {
-                body += data;
-            });
-
-            req.on('end', function() {
-                var data = JSON.parse(body);
-
-                fs.writeFile("data/libs.json", JSON.stringify(data), function(err) {
                     if (err) {
                         return console.log(err);
                     }
@@ -263,7 +244,7 @@ function onRequest(req, res) {
 
             fs.createReadStream(filePath).pipe(res)
         } else {
-            if (currentUrl.pathname.lastIndexOf('/data/pages/', 0) === 0){
+            if (currentUrl.pathname.lastIndexOf('/'+pathToPageData, 0) === 0){
                     res.statusCode = 200;
                     res.setHeader('Content-Type', 'text/html');
                     fs.readFile(pathToEmptyPageData, 'utf8', function (err, data) {
@@ -283,12 +264,12 @@ function onRequest(req, res) {
         }
 
         // get the current date
-        var now = new Date()
+        var now = new Date();
         if (res.statusCode != 200) {
-            console.log(now.getHours() + ':' + now.getMinutes() + ':' + now.getSeconds(), // log the time
-                    '-', req.method, // then the method
-                    '-', req.url, // then the url
-                    '-', res.statusCode) // then the status
+            console.log(now.getHours() + ':' + now.getMinutes() + ':' + now.getSeconds(),
+                    '-', req.method,
+                    '-', req.url,
+                    '-', res.statusCode)
         }
     })
 }

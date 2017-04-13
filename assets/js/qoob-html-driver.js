@@ -127,29 +127,6 @@ QoobHtmlDriver.prototype.loadLibrariesData = function(cb) {
 };
 
 /**
- * Add new library
- * @param {Array} new lib
- * @param {loadQoobDataCallback} cb - A callback to run.
- */
-QoobHtmlDriver.prototype.saveLibrariesData = function(libraries, cb) {
-    jQuery.ajax({
-        url: this.savelibsJsonUrl,
-        type: 'POST',
-        data: JSON.stringify(libraries),
-        processData: false,
-        contentType: "application/json; charset=utf-8",
-        dataType: 'json',
-        error: function(jqXHR, textStatus) {
-            cb(textStatus);
-        },
-        success: function(response) {
-            cb(null, response.success);
-            console.log(response);
-        }
-    });
-};
-
-/**
  * Save page template
  * 
  * @param {savePageTemplateCallback} cb - A callback to run.
