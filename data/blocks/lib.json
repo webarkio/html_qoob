@@ -24,10 +24,5 @@
         "type": "css",
         "name": "qoob-default-headers-footers-css",
         "src": "lib.css"
-    }, {
-        "type": "js",
-        "name": "qoob-default-headers-footers-js",
-        "src": "lib.js",
-        "backend": true
     }]
 }]
