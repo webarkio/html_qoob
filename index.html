@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Qoob Demo Page</title>
+    <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+    <!-- Theme styles -->
+    <link rel="stylesheet" href="assets/css/megafish.css">
+    <link rel="stylesheet" href="assets/css/magnific-popup.css">
+    <link rel="stylesheet" href="assets/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="assets/css/owl.theme.default.min.css">
+    <link rel="stylesheet" href="assets/css/fonts/fonts.css">
+    <link rel="stylesheet" href="assets/css/jquery-ui.min.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+    <!-- loader -->
+    <div class="loader-wrap"></div>
+    <div class="loader">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+    <!-- qoob blocks container -->
+    <div id="qoob-blocks"><div class="qoob-block qoob-block_simple-bg qoob-main qoob-main-28" style="background-image: url(qoob/blocks/qoob_main/assets/img/main_bg.jpg);">
+        <div class="qb-container qoob-block__table">
+            <div class="qoob-block__table-cell">
+                <div class="qoob-header">
+                    <h2 class="qoob-header__title qoob-main__title qoob-header__title_color_white">Welcome to qoob</h2>
+                    <div class="qoob-header__description qoob-main__description qoob-header__description_color_white">
+                       <p>Create the first page of your amazing website right now. You can modify the blocks of your website with tons of options</p>
+                    </div>
+                </div>
+                    <div class="qoob-button qoob-main__button">
+                        <a class="qoob-button__button qoob-button__button_hdf" type="button" href="/qoob">Run qoob dashboard</a>
+                    </div>
+            </div>
+        </div>
+</div>
+<script>
+jQuery( document ).ready(function() {
+    var windowHeight = jQuery(window).height();
+    var windowWidth = jQuery(window).width();
+    if(windowWidth > 767) {
+        jQuery('.qoob-main-28').css('height', windowHeight);
+    } else {
+        jQuery('.qoob-main-28').css('height', 'auto');
+    }
+});
+jQuery( window ).resize(function() {
+    var windowHeight = jQuery(window).height();
+    var windowWidth = jQuery(window).width();
+    if(windowWidth > 767) {
+        jQuery('.qoob-main-28').css('height', windowHeight);
+    } else {
+        jQuery('.qoob-main-28').css('height', 'auto');
+    }
+});
+</script></div>
+    <!-- qoob starter -->
+    <script type="text/javascript" src="assets/js/qoob-html-driver.js"></script>
+    <script type="text/javascript" src="qoob/qoob-frontend-starter.js"></script>
+    <script type="text/javascript">
+    var qoobLibs = [{"url":"qoob/blocks","update":"qoob/blocks/lib.json","version":"2.0.0","name":"Default","res":[{"type":"css","name":"qoob-default-css","src":"lib.css"},{"type":"css","name":"glyphicons-css","src":"glyphicons/assets/css/glyphicons.css"},{"type":"css","name":"fontawesome-css","src":"fontawesome/assets/css/fontawesome.css"},{"type":"js","name":"qoob-default-js","src":"qoob/blocks/lib.js","backend":true}]},{"url":"data/blocks","update":"data/blocks/lib.json","version":"1.0.0","name":"Headers and footers","res":[{"type":"css","name":"qoob-default-headers-footers-css","src":"lib.css"},{"type":"js","name":"qoob-default-headers-footers-js","src":"data/blocks/lib.js","backend":true}]}];
+    var starter = new QoobStarter({
+        "driver": new QoobHtmlDriver({
+            "libs": qoobLibs
+        })
+    });
+    </script>    <!-- end qoob starter -->
+    <!-- Theme js -->
+    <script src="assets/js/skip-link-focus-fix.js"></script>
+    <script src="assets/js/hoverIntent.js"></script>
+    <script src="assets/js/superfish.min.js"></script>
+    <script src="assets/js/owl.carousel.min.js"></script>
+    <script src="assets/js/jQuery.countTo.js"></script>
+    <script src="assets/js/progressbar.min.js"></script>
+    <script src="assets/js/navigation.js"></script>
+    <script src="assets/js/masonry.js"></script>
+    <script src="assets/js/jquery.waypoints.js"></script>
+    <script src="assets/js/jquery.magnific-popup.min.js"></script>
+    <script src="assets/js/froogaloop.min.js"></script>
+    <script src="assets/js/common.js"></script>
+</body>
+
+</html>
