@@ -1,5 +1,4 @@
-[{
-    "update": "demo_blocks/lib.json",
+{
     "version": "1.0.0",
     "name": "Headers and footers",
     "groups": [{
@@ -25,4 +24,4 @@
         "name": "qoob-default-headers-footers-css",
         "src": "lib.css"
     }]
-}]
+}

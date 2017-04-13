@@ -94,10 +94,33 @@ QoobHtmlDriver.prototype.loadLibrariesData = function(cb) {
             dataType: "json",
             url: this.libsJsonUrl,
             error: function(jqXHR, textStatus) {
+
                 cb(textStatus);
             },
             success: function(data) {
-                cb(null, data);
+                var totalLibs=data.length;
+                var loadedLibs=0;
+                var libs=[];
+                for (var i = 0; i < data.length; i++) {
+                    jQuery.ajax({
+                        dataType: "json",
+                        url: data[i],
+                        error: function(jqXHR, textStatus) {
+                            loadedLibs=loadedLibs+1;
+                        },
+                        success: function(lib) {
+                            loadedLibs=loadedLibs+1;
+                            lib.url=this.url.replace('lib.json','');
+                            libs.push(lib);
+                            if(loadedLibs==totalLibs){
+                                cb(null, libs);
+                            }
+                        }
+                    });
+
+                    
+                }
+                //cb(null, data);
             }
         });
     }
