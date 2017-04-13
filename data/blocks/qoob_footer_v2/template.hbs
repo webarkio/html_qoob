@@ -1,0 +1,55 @@
+<footer class="qoob-footer-lg">
+    <div class="qb-container qb-container_nopadding">
+      <div class="qoob-footer-lg_column-5">
+        <div class="qoob-footer-lg_column-8">
+          <div class="qoob-footer-lg_header">
+            {{inputHeader}}
+          </div>
+          <form class="qoob-footer-lg-form">
+            <div class="qoob-footer-lg-form__group">
+              <input type="email" class="qoob-footer-lg-form__input" placeholder="{{placeholder}}">
+            </div>
+            <button type="submit" class="qoob-footer-lg-form__button"><i class="fa fa-chevron-right"></i></button>
+          </form>
+
+            <div class="qoob-footer-lg__copyright">
+              {{{copyright}}}
+            </div>
+        </div>
+      </div>
+
+      <div class="qoob-footer-lg_column-3">
+        <div class="qoob-footer-lg_header">
+          {{iconHeader}}
+        </div>
+        
+        <ul class="qoob-footer-lg__list">
+          {{#each_with_sort icons "order"}}
+            <li class="qoob-footer-lg__list-item">
+                <i class="qoob-footer-lg__list-item-icon fa {{code}}"></i>
+                <a class="qoob-footer-lg__list-item-link" href="{{link}}">
+                  {{title}}
+                </a>
+            </li>
+          {{/each_with_sort}}
+        </ul>
+      </div>
+
+      {{#each_with_sort column "order"}}
+        <div class="qoob-footer-lg_column-2">
+          <div class="qoob-footer-lg_header">
+            {{title}}
+          </div>
+          <ul class="qoob-footer-lg__list">
+            {{#each_with_sort menu "order"}}              
+              <li class="qoob-footer-lg__list-item">
+                  <a class="qoob-footer-lg__list-item-link" href="{{link}}">
+                    {{title}}
+                  </a>
+              </li>
+            {{/each_with_sort}}
+          </ul>
+        </div>
+      {{/each_with_sort}}
+  </div>
+</footer>

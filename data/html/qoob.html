@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<link rel="icon" href="favicon.ico" sizes="32x32" />
+    <script type="text/javascript" src="qoob/qoob-backend-starter.js"></script>
+    <script type="text/javascript" src="assets/js/qoob-html-driver.js"></script>
+    <script type="text/javascript">
+    var url = /.*\/(.*?)\.html.*/.exec(window.location.href);
+
+    var starter = new QoobStarter({
+        "mode": "dev",
+        "driver": new QoobHtmlDriver({
+            "page": url[1]
+        })
+    });
+    </script>
+</head>
+
+<body>
+</body>
+
+</html>

@@ -1,0 +1,30 @@
+<footer class="qoob-footer-sm">
+    <div class="qb-container qb-container_nopadding">
+      <div class="qoob-footer-sm_column">
+        <ul class="qoob-footer-sm__menu">
+            {{#each_with_sort menu "order"}}
+              <li class="qoob-footer-sm__menu-item">
+                  <a class="qoob-footer-sm__menu-item-link" href="{{link}}">
+                    <span>{{title}}</span>
+                  </a>
+              </li>
+            {{/each_with_sort}}
+          </li>
+        </ul>
+      </div>
+      <div class="qoob-footer-sm_column">
+        <ul class="qoob-footer-sm__icons">
+          {{#each_with_sort icons "order"}}
+            <li class="qoob-footer-sm__icons-item {{#if last}}qoob-footer-sm__icons-item_last{{/if}}">
+                <a class="qoob-footer-sm__icons-item-link" href="{{title}}">
+                  <i class="fa {{code}}"></i>
+                </a>
+            </li>
+          {{/each_with_sort}}
+          <li class="qoob-footer-sm__copyright">
+            {{{text}}}
+          </li>
+        </ul>
+      </div>
+    </div>
+</footer>

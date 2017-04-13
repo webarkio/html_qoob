@@ -1,0 +1,69 @@
+{
+    "name": "",
+    "groups": "main",
+    "template": "template.hbs",
+    "settings": [{
+        "name": "text",
+        "label": "Copyright text",
+        "type": "text"
+    }, {
+        "name": "menu",
+        "label": "Menu",
+        "type": "accordion",
+        "settings": [{
+            "name": "title",
+            "label": "Link text",
+            "type": "text"
+        }, {
+            "name": "link",
+            "label": "Link",
+            "type": "text"
+        }]
+    }, {
+        "name": "icons",
+        "label": "Social icons",
+        "type": "accordion",
+        "settings": [{
+            "name": "title",
+            "label": "Link icons",
+            "type": "text"
+        }, {
+            "name": "code",
+            "label": "Icon",
+            "type": "icon"
+        }]
+    }],
+    "defaults": {
+        "text": "&copy; All rights reserved",
+        "icons": [{
+            "title": "#",
+            "code": "fa fa-facebook",
+            "order": 0
+        }, {
+            "title": "#",
+            "code": "fa fa-github",
+            "order": 1
+        }, {
+            "title": "#",
+            "code": "fa fa-twitter",
+            "order": 2
+        }],
+        "menu": [{
+            "title": "Market",
+            "link": "#",
+            "order": 0
+        }, {
+            "title": "Documentation",
+            "link": "#",
+            "order": 1
+        }, {
+            "title": "Contact us",
+            "link": "#",
+            "order": 2
+        }, {
+            "title": "Downloads",
+            "link": "#",
+            "order": 3
+        }]
+    }
+}

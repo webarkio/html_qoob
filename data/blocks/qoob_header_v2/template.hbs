@@ -1,0 +1,53 @@
+<header class="qoob-nav-header qoob-nav-header-{{id}}">
+    <div class="qoob-nav-header__logo qoob-nav-header__logo_width-lg qoob-nav-header__logo_bg-grey qoob-nav-header__logo_align-center qoob-nav-header__logo_padding-top-bottom ">
+        <a href="{{link}}" class="qoob-nav-header__logo-link qoob-nav-header__logo-link_position2" rel="home" itemprop="url">
+            {{#if logo}}
+              <img class="qoob-nav-header__logo-image" src="{{logo}}" alt="" itemprop="logo">
+            {{/if}}
+        </a>
+    </div>
+    <div class="qb-container qb-container_nopadding">
+        <nav class="qoob-menu qoob-menu_bg-white qoob-menu_align-center">
+            <div class="qoob-menu__container">
+              <ul class="qoob-menu__ul qoob-menu__ul_display">
+                {{#each_with_sort menu "order"}}
+                  <li class="qoob-menu__item qoob-menu__item_inline-block">
+                      <a class="qoob-menu__item-link qoob-menu__item-link_p-lg" href="{{link}}">
+                        <span>{{title}}</span>
+                      </a>
+                  </li>
+                {{/each_with_sort}}
+              </ul>
+              <button class="qoob-nav-header__button qoob-nav-header__button_m-lg">
+                  <span class="qoob-nav-header__icon"> 
+                    <i class="qoob-nav-header__icon-line"></i> 
+                    <i class="qoob-nav-header__icon-line"></i> 
+                    <i class="qoob-nav-header__icon-line"></i> 
+                    <strong class="screen-reader-text">Menu</strong>
+                  </span>
+              </button>
+            </div>
+        </nav>
+    </div>
+    <nav class="qoob-menu-mobile">
+          <ul class="qoob-menu-mobile__ul">
+              {{#each_with_sort menu "order"}}
+                <li class="qoob-menu-mobile__item">
+                    <a class="qoob-menu-mobile__item-link" href="{{link}}">
+                      <span>{{title}}</span>
+                    </a>
+                </li>
+              {{/each_with_sort}}
+          </ul>
+    </nav>
+</header>
+<script type="text/javascript">
+    jQuery('.qoob-nav-header-{{id}} .qoob-nav-header__button').on('click', function() {
+        jQuery('.qoob-nav-header-{{id}}').find('.qoob-menu-mobile').toggleClass('qoob-menu-mobile_open');
+        if ( jQuery('.qoob-nav-header-{{id}}').find('.qoob-menu-mobile__ul').is( ":hidden" ) ) {
+          jQuery('.qoob-nav-header-{{id}}').find('.qoob-menu-mobile__ul').slideDown();
+        } else {
+          jQuery('.qoob-nav-header-{{id}}').find('.qoob-menu-mobile__ul').slideUp();
+        }
+    });
+</script>

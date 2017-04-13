@@ -1,0 +1,120 @@
+{
+    "name": "",
+    "groups": "main",
+    "template": "template.hbs",
+    "settings": [{
+        "name": "copyright",
+        "label": "Copyright text",
+        "type": "text"
+    }, {
+        "name": "inputHeader",
+        "label": "Input header",
+        "type": "text"
+    }, {
+        "name": "placeholder",
+        "label": "Placeholder input",
+        "type": "text"
+    }, {
+        "name": "column",
+        "label": "Column",
+        "type": "accordion",
+        "settings": [{
+            "name": "title",
+            "label": "Title column",
+            "type": "text"
+        }, {
+            "name": "menu",
+            "label": "Menu",
+            "type": "accordion",
+            "settings": [{
+                "name": "title",
+                "label": "Link text",
+                "type": "text"
+            }, {
+                "name": "link",
+                "label": "Link",
+                "type": "text"
+            }]
+        }]
+    }, {
+        "name": "iconHeader",
+        "label": "Icon header",
+        "type": "text"
+    }, {
+        "name": "icons",
+        "label": "Social icons",
+        "type": "accordion",
+        "settings": [{
+            "name": "title",
+            "label": "Name icon",
+            "type": "text"
+        }, {
+            "name": "link",
+            "label": "Link icons",
+            "type": "text"
+        }, {
+            "name": "code",
+            "label": "Icon",
+            "type": "icon"
+        }]
+    }],
+    "defaults": {
+        "copyright": "&copy; All rights reserved",
+        "inputHeader": "Subscribe on news",
+        "placeholder": "Your Email",
+        "column": [{
+            "title": "Pages",
+            "order": 0,
+            "menu": [{
+                "title": "Market",
+                "link": "#",
+                "order": 0
+            }, {
+                "title": "Documentation",
+                "link": "#",
+                "order": 1
+            }, {
+                "title": "Contact us",
+                "link": "#",
+                "order": 2
+            }, {
+                "title": "Downloads",
+                "link": "#",
+                "order": 3
+            }]
+        }, {
+            "title": "Pages",
+            "order": 1,
+            "menu": [{
+                "title": "Dummy 1",
+                "link": "#",
+                "order": 0
+            }, {
+                "title": "Dummy 2",
+                "link": "#",
+                "order": 1
+            }, {
+                "title": "Dummy 3",
+                "link": "#",
+                "order": 2
+            }]
+        }],
+        "iconHeader": "Folow us in social",
+        "icons": [{
+            "title": "Facebook",
+            "link": "#",
+            "code": "fa fa-facebook",
+            "order": 0
+        }, {
+            "title": "GitHub",
+            "link": "#",
+            "code": "fa fa-github",
+            "order": 1
+        }, {
+            "title": "Twitter",
+            "link": "#",
+            "code": "fa fa-twitter",
+            "order": 2
+        }]
+    }
+}

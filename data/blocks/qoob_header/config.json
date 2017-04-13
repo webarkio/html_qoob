@@ -1,0 +1,53 @@
+{
+    "name": "",
+    "groups": "main",
+    "template": "template.hbs",
+    "settings": [{
+        "name": "title",
+        "label": "Site title",
+        "type": "text"
+    }, {
+        "name": "link",
+        "label": "Link logo",
+        "type": "text"
+    }, {
+        "name": "logo",
+        "label": "Logo",
+        "type": "image"
+    }, {
+        "name": "menu",
+        "label": "Menu",
+        "type": "accordion",
+        "settings": [{
+            "name": "title",
+            "label": "Link text",
+            "type": "text"
+        }, {
+            "name": "link",
+            "label": "Link",
+            "type": "text"
+        }]
+    }],
+    "defaults": {
+        "title": "qoob",
+        "link": "#",
+        "logo": "%block_url%/assets/img/logo.png",
+        "menu": [{
+            "title": "Market",
+            "link": "#",
+            "order": 0
+        }, {
+            "title": "Documentation",
+            "link": "#",
+            "order": 1
+        }, {
+            "title": "Contact us",
+            "link": "#",
+            "order": 2
+        }, {
+            "title": "Downloads",
+            "link": "#",
+            "order": 3
+        }]
+    }
+}

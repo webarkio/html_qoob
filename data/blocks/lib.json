@@ -1,0 +1,33 @@
+[{
+    "update": "demo_blocks/lib.json",
+    "version": "1.0.0",
+    "name": "Headers and footers",
+    "groups": [{
+        "id": "main",
+        "label": "Main",
+        "position": "0"
+    }],
+    "blocks": [{
+        "name": "qoob_header",
+        "url": "qoob_header/"
+    }, {
+        "name": "qoob_header_v2",
+        "url": "qoob_header_v2/"
+    }, {
+        "name": "qoob_footer",
+        "url": "qoob_footer/"
+    },{
+        "name": "qoob_footer_v2",
+        "url": "qoob_footer_v2/"
+    }],
+    "res": [{
+        "type": "css",
+        "name": "qoob-default-headers-footers-css",
+        "src": "lib.css"
+    }, {
+        "type": "js",
+        "name": "qoob-default-headers-footers-js",
+        "src": "lib.js",
+        "backend": true
+    }]
+}]

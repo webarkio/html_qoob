@@ -1,0 +1,241 @@
+// Load dependency libraries
+var http = require('http'),
+    fs = require('fs'),
+    formidable = require('formidable'),
+    path = require('path'),
+    url = require('url'),
+    fs = require('fs');
+// Create the http server
+var server = http.createServer(onRequest)
+
+// start the server
+server.listen(process.env.port || 8000)
+
+// log to the console that we are listening
+console.log('Local qoob http server running at http://localhost:' + (process.env.PORT || 8000))
+
+var pathToPageData = 'data/pages/';
+var pathToLayout = 'data/html/layout.html';
+var pathToQoobHtml = 'data/html/qoob.html';
+var pathToQoobIndex = 'data/html/index.html';
+
+function onRequest(req, res) {
+    
+    var currentUrl = url.parse(req.url, true);
+
+    if (currentUrl.pathname === "/qoob") {
+        res.statusCode = 200;
+        res.setHeader('Content-Type', 'text/html');
+        var content ='<table>';
+        fs.readdir(pathToPageData, function(err, files) {
+            for (var i = 0; i < files.length; i++) {
+                if(files[i]!=='empty.json'){
+                    page = files[i].replace('.json', '');
+                    content=content+'<tr><td>'+page+'</td><td><a href="'+page+'.html?edit">Edit</a></td><td><a href="'+page+'.html">View</a></td></tr>';
+                }
+            }
+            content=content+'</table>';
+            fs.readFile(pathToQoobIndex, 'utf8', function (err, data) {
+                res.write(data.replace("<!-- qoob pages list -->", content));
+                res.end();
+            });        
+
+        });
+
+
+        return;
+    }
+
+    if (currentUrl.pathname === "/layout.html") {
+        res.statusCode = 200;
+        res.setHeader('Content-Type', 'text/html');
+        fs.readFile(pathToLayout, 'utf8', function (err, data) {
+            res.write(data);
+            res.end();
+        });        
+        return;
+    }
+    
+    if (typeof currentUrl.query.edit !== 'undefined') {
+        res.statusCode = 200;
+        res.setHeader('Content-Type', 'text/html');
+        fs.readFile(pathToQoobHtml, 'utf8', function (err, data) {
+            res.write(data);
+            res.end();
+        });        
+        return;
+    }
+
+
+    if (req.method == "POST") {
+        //Save page data
+        if (req.url === "/save") {
+
+            var body = '';
+
+            req.on('data', function(data) {
+                body += data;
+            });
+
+            req.on('end', function() {
+                var data = JSON.parse(body);
+                //SAVE page data
+                fs.writeFile(pathToPageData+data.page+".json", JSON.stringify(data.data), function(err) {
+                    if (err) {
+                        return console.log(err);
+                    }
+                    res.statusCode = 200;
+                    res.setHeader('Content-Type', 'text/json');
+                    res.write('{"success": "true"}');
+                    res.end();
+                });
+                //SAVE html data
+                fs.readFile(pathToLayout, 'utf8', function(err, fileData) {
+                    if (err) throw err;
+                    fileData = fileData.replace("<div id=\"qoob-blocks\"></div>", "<div id=\"qoob-blocks\">" + data.html + "</div>");
+                    for (var i = 0; i < data.libs.length; i++) {
+                        delete data.libs[i].groups;
+                        delete data.libs[i].blocks;
+                        delete data.libs[i].assets;
+                    }
+                    fileData = fileData.replace("var qoobLibs = null;", "var qoobLibs = " + JSON.stringify(data.libs)+";");
+                    fs.writeFile(data.page+".html", fileData, function(err) {
+                        if (err) {
+                            return console.log(err);
+                        }
+                    });
+                });
+            });
+        }
+
+        //Save template
+        if (req.url === "/save-template") {
+            var body = '';
+            req.on('data', function(data) {
+                body += data;
+            });
+
+            req.on('end', function() {
+                var data = JSON.parse(body);
+
+                fs.writeFile("data/templates.json", JSON.stringify(data), function(err) {
+                    if (err) {
+                        return console.log(err);
+                    }
+                    res.statusCode = 200;
+                    res.setHeader('Content-Type', 'text/json');
+                    res.write('{"success": true}');
+                    res.end();
+                });
+            });
+        }
+
+        //Save libraries
+        if (req.url === "/save-labraries") {
+            var body = '';
+            req.on('data', function(data) {
+                body += data;
+            });
+
+            req.on('end', function() {
+                var data = JSON.parse(body);
+
+                fs.writeFile("data/libs.json", JSON.stringify(data), function(err) {
+                    if (err) {
+                        return console.log(err);
+                    }
+                    res.statusCode = 200;
+                    res.setHeader('Content-Type', 'text/json');
+                    res.write('{"success": true}');
+                    res.end();
+                });
+            });
+        }
+
+        //Upload image
+        if (req.url === "/upload") {
+            // parse a file upload
+            var form = new formidable.IncomingForm();
+
+            // store all uploads in the /uploads directory
+            form.uploadDir = path.join(__dirname, '/uploads');
+
+            // every time a file has been uploaded successfully,
+            // rename it to it's orignal name
+            form.on('file', function(field, file) {
+                fs.rename(file.path, path.join(form.uploadDir, file.name));
+            });
+
+            // log any errors that occur
+            form.on('error', function(err) {
+                console.log('An error has occured: \n' + err);
+            });
+
+            // once all the files have been uploaded, send a response to the client
+            form.on('end', function() {
+                /* The file name of the uploaded file */
+                var fileName = this.openedFiles[0].name;
+
+                var pathImg = form.uploadDir.replace(__dirname, '');
+
+                var response = {
+                    url: pathImg.replace(/\\/g, "/") + "/" + fileName
+                };
+
+                res.end(JSON.stringify(response));
+            });
+
+            // parse the incoming request containing the form data
+            form.parse(req);
+        }
+
+        return;
+    }
+
+
+    // find the file name from the url
+    var fileName = req.url.slice(1) !== '' ? req.url.slice(1) : 'index.html';
+
+    //parse url for ?
+    fileName = (fileName.split("?").length > 1 ? fileName.split("?")[0] : fileName);
+
+    // create a full path to that file
+    var filePath = path.join(__dirname, fileName)
+
+    // check if this file exists
+    fs.exists(filePath, function(exists) {
+
+        // if it does, then stream it to the browser
+        if (exists) {
+            var parts = fileName.split(".");
+
+            if (parts.length > 1) {
+                if (parts[parts.length - 1] === "css") {
+                    res.setHeader('Content-Type', 'text/css')
+                } else if (parts[parts.length - 1] === "js") {
+                    res.setHeader('Content-Type', 'text/js')
+                }
+
+            }
+
+            fs.createReadStream(filePath).pipe(res)
+        } else {
+            // if not, then we set our status code to 404, and send an error page
+            res.statusCode = 404
+            res.setHeader('Content-Type', 'text/html')
+            res.write('<style>body{ font-family: "Helvetica Neue"; text-align: center; font-size: 3em; font-weight: 300; }</style> \
+                <h1>404</h1> \
+                <p><b>' + req.url + '</b> not found</p>')
+            res.end()
+        }
+
+        // get the current date
+        var now = new Date()
+        if (res.statusCode != 200) {
+            console.log(now.getHours() + ':' + now.getMinutes() + ':' + now.getSeconds(), // log the time
+                    '-', req.method, // then the method
+                    '-', req.url, // then the url
+                    '-', res.statusCode) // then the status
+        }
+    })
+}
