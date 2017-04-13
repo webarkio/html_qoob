@@ -43,7 +43,7 @@ function onRequest(req, res) {
             for (var i = 0; i < files.length; i++) {
                 if(files[i]!=='empty.json'){
                     page = files[i].replace('.json', '');
-                    content=content+'<tr><td>'+page+'</td><td><a href="'+page+'.html?edit">Edit</a></td><td><a href="'+page+'.html">View</a></td><td><a href="'+page+'.html?delete">Delete</a></td></tr>';
+                    content=content+'<tr><td>'+page+'.html</td><td><a href="'+page+'.html">View</a></td><td><a href="'+page+'.html?edit">Edit</a></td><td>'+(page!='index'?'<a href="'+page+'.html?delete" class="delete">Delete</a>':'')+'</td></tr>';
                 }
             }
             content=content+'</table>';
