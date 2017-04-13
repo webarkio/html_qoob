@@ -17,11 +17,19 @@ console.log('Local qoob http server running at http://localhost:' + (process.env
 var pathToPageData = 'data/pages/';
 var pathToLayout = 'data/html/layout.html';
 var pathToQoobHtml = 'data/html/qoob.html';
-var pathToQoobIndex = 'data/html/index.html';
+var pathToQoobDashboard = 'data/html/dashboard.html';
 
 function onRequest(req, res) {
     
     var currentUrl = url.parse(req.url, true);
+
+	if (currentUrl.pathname === "/qoob/"){
+		res.writeHead(302, {
+		  'Location': '/qoob'
+		});
+		res.end();
+		return;
+	}
 
     if (currentUrl.pathname === "/qoob") {
         res.statusCode = 200;
@@ -35,7 +43,7 @@ function onRequest(req, res) {
                 }
             }
             content=content+'</table>';
-            fs.readFile(pathToQoobIndex, 'utf8', function (err, data) {
+            fs.readFile(pathToQoobDashboard, 'utf8', function (err, data) {
                 res.write(data.replace("<!-- qoob pages list -->", content));
                 res.end();
             });        
