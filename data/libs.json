@@ -119,11 +119,6 @@
         "type": "css",
         "name": "fontawesome-css",
         "src": "fontawesome/assets/css/fontawesome.css"
-    }, {
-        "type": "js",
-        "name": "qoob-default-js",
-        "src": "lib.js",
-        "backend": true
     }]
 }, {
     "url": "data/blocks",
@@ -152,10 +147,5 @@
         "type": "css",
         "name": "qoob-default-headers-footers-css",
         "src": "lib.css"
-    }, {
-        "type": "js",
-        "name": "qoob-default-headers-footers-js",
-        "src": "lib.js",
-        "backend": true
     }]
 }]

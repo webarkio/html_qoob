@@ -73,12 +73,7 @@ QoobHtmlDriver.prototype.loadPageData = function(cb) {
         dataType: "json",
         url: this.pageDataUrl,
         error: function(jqXHR, textStatus) {
-                if(self.pageDataUrl!="data/pages/empty.json"){
-                    self.pageDataUrl = "data/pages/empty.json";
-                    self.loadPageData(cb);
-                }else{
-                    cb(textStatus);
-                }
+            cb(textStatus);
         },
         success: function(data) {
             cb(null, data);
@@ -184,7 +179,10 @@ QoobHtmlDriver.prototype.mainMenu = function(staticMenu) {
         "id": "show-frontend",
         "label": "Show on frontend",
         "action": function(){
-            document.location.href = self.page+".html";
+            window.open(
+              self.page+".html",
+              '_blank'
+            );            
         },
         "icon": ""
     }];

@@ -4,7 +4,11 @@ var http = require('http'),
     formidable = require('formidable'),
     path = require('path'),
     url = require('url'),
+    Loader = require('./qoob/loader'),
     fs = require('fs');
+
+
+
 // Create the http server
 var server = http.createServer(onRequest)
 
@@ -15,6 +19,7 @@ server.listen(process.env.port || 8000)
 console.log('Local qoob http server running at http://localhost:' + (process.env.PORT || 8000))
 
 var pathToPageData = 'data/pages/';
+var pathToEmptyPageData = 'data/pages/empty.json';
 var pathToLayout = 'data/html/layout.html';
 var pathToQoobHtml = 'data/html/qoob.html';
 var pathToQoobDashboard = 'data/html/dashboard.html';
@@ -22,6 +27,8 @@ var pathToQoobDashboard = 'data/html/dashboard.html';
 function onRequest(req, res) {
     
     var currentUrl = url.parse(req.url, true);
+
+
 
 	if (currentUrl.pathname === "/qoob/"){
 		res.writeHead(302, {
@@ -58,6 +65,7 @@ function onRequest(req, res) {
         res.statusCode = 200;
         res.setHeader('Content-Type', 'text/html');
         fs.readFile(pathToLayout, 'utf8', function (err, data) {
+            data = data.replace("<!-- qoob starter -->", '<script type="text/javascript" src="assets/js/qoob-html-driver.js"></script><script type="text/javascript" src="qoob/qoob-frontend-starter.js"></script><script type="text/javascript">var starter = new QoobStarter({"driver": new QoobHtmlDriver()});</script>');
             res.write(data);
             res.end();
         });        
@@ -101,17 +109,44 @@ function onRequest(req, res) {
                 fs.readFile(pathToLayout, 'utf8', function(err, fileData) {
                     if (err) throw err;
                     fileData = fileData.replace("<div id=\"qoob-blocks\"></div>", "<div id=\"qoob-blocks\">" + data.html + "</div>");
+
+                    var scripts = '';
+                    var css = '';
+                    var loader = new Loader();
+
                     for (var i = 0; i < data.libs.length; i++) {
-                        delete data.libs[i].groups;
-                        delete data.libs[i].blocks;
-                        delete data.libs[i].assets;
-                    }
-                    fileData = fileData.replace("var qoobLibs = null;", "var qoobLibs = " + JSON.stringify(data.libs)+";");
-                    fs.writeFile(data.page+".html", fileData, function(err) {
-                        if (err) {
-                            return console.log(err);
+                        var libUrl = data.libs[i].url.replace(/\/+$/g, '') + "/";
+                        for (var j = 0; j < data.libs[i].res.length; j++) {
+                            console.log(data.libs[i].res[j]);
+                            if (data.libs[i].res[j].src.indexOf("http://") !== 0 && data.libs[i].res[j].src.indexOf("https://") !== 0) {
+                                data.libs[i].res[j].src = libUrl + data.libs[i].res[j].src.replace(/^\/+/g, ''); //Trim slashes in the begining
+                            }                            
+                            loader.add(data.libs[i].res[j]);
                         }
+                    }
+
+                    loader.loadJS = function(src, success, error){
+                        scripts = scripts + '\n\r<script type="text/javascript" src="'+src+'"></script>';
+                        success();
+                    };
+                    loader.loadCSS = function(src, success, error){
+                        css=css+'\n\r<link rel="stylesheet" href="'+src+'">';
+                        success();
+                    };
+                    loader.on('complete', function(){
+                        fileData = fileData.replace("</head>", css+scripts + "\n\r</head>");
+
+                        fs.writeFile(data.page+".html", fileData, function(err) {
+                            if (err) {
+                                return console.log(err);
+                            }
+                        });
+
+                        console.log('complete');
                     });
+                    loader.start();
+
+                    //fileData = fileData.replace("var qoobLibs = null;", "var qoobLibs = " + JSON.stringify(data.libs)+";");
                 });
             });
         }
@@ -228,6 +263,16 @@ function onRequest(req, res) {
 
             fs.createReadStream(filePath).pipe(res)
         } else {
+            if (currentUrl.pathname.lastIndexOf('/data/pages/', 0) === 0){
+                    res.statusCode = 200;
+                    res.setHeader('Content-Type', 'text/html');
+                    fs.readFile(pathToEmptyPageData, 'utf8', function (err, data) {
+                        res.write(data);
+                        res.end();
+                    });        
+                    return;    
+            }
+
             // if not, then we set our status code to 404, and send an error page
             res.statusCode = 404
             res.setHeader('Content-Type', 'text/html')
