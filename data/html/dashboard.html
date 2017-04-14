@@ -5,35 +5,33 @@
     <meta charset="UTF-8">
     <title>Qoob Pages</title>
     <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
-    <!-- Theme styles -->
-    <link rel="stylesheet" href="assets/css/megafish.css">
-    <link rel="stylesheet" href="assets/css/magnific-popup.css">
-    <link rel="stylesheet" href="assets/css/owl.carousel.min.css">
-    <link rel="stylesheet" href="assets/css/owl.theme.default.min.css">
-    <link rel="stylesheet" href="assets/css/fonts/fonts.css">
-    <link rel="stylesheet" href="assets/css/jquery-ui.min.css">
-    <link rel="stylesheet" href="assets/css/style.css">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        body{ font-family: "Helvetica Neue"; font-size: 2em;font-weight: 300;}
+        h1, h2{text-align: center;  }
+        a, a:hover, a:visited {color: blue;} 
+        a.delete, a:hover.delete, a:visited.delete {color: red;} 
+        .create_page {text-align: center; }
+        .create_page table{margin: auto;}
+        .create_page table td{padding: 4px; text-align: left;}
+        input[type="text"] {text-align: right; padding:15px; font-size: 1em; width:150px;}
+        input[type="submit"] {text-align: center; padding:15px; font-size: 1em; width:150px; margin-top:20px; }
+    </style>
 </head>
 
 <body>
-    <h1>Qoob Pages</h1>
-    New page name:<input type="text" name="name" id="pageName">.html
-    <input type="button" name="Create" onclick="document.location.href=$('#pageName').val()+'.html?edit';return false;" value="Create"><br>
+    <h1>Qoob Page Builder</h1>
+    <div class="create_page">
+    <form onsubmit="document.location.href=$('#pageName').val()+'.html?edit';return false;" >
+    New page  <input type="text" name="name" id="pageName">.html
+        <input type="submit" name="Create" value="Create">
+        </form>
+    </div>
+    <h2>Qoob Pages</h2>
+    <div class="create_page">
     <!-- qoob pages list -->
-    <!-- Theme js -->
-    <script src="assets/js/skip-link-focus-fix.js"></script>
-    <script src="assets/js/hoverIntent.js"></script>
-    <script src="assets/js/superfish.min.js"></script>
-    <script src="assets/js/owl.carousel.min.js"></script>
-    <script src="assets/js/jQuery.countTo.js"></script>
-    <script src="assets/js/progressbar.min.js"></script>
-    <script src="assets/js/navigation.js"></script>
-    <script src="assets/js/masonry.js"></script>
-    <script src="assets/js/jquery.waypoints.js"></script>
-    <script src="assets/js/jquery.magnific-popup.min.js"></script>
-    <script src="assets/js/froogaloop.min.js"></script>
-    <script src="assets/js/common.js"></script>
+    </div>
+
 </body>
 
 </html>

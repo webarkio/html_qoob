@@ -14,7 +14,12 @@
     <link rel="stylesheet" href="assets/css/jquery-ui.min.css">
     <link rel="stylesheet" href="assets/css/style.css">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-</head>
+
+<link rel="stylesheet" href="qoob/blocks/lib.css">
+<link rel="stylesheet" href="qoob/blocks/glyphicons/assets/css/glyphicons.css">
+<link rel="stylesheet" href="qoob/blocks/fontawesome/assets/css/fontawesome.css">
+<link rel="stylesheet" href="data/blocks/lib.css">
+</head>
 
 <body>
     <!-- loader -->
@@ -61,17 +66,9 @@ jQuery( window ).resize(function() {
     }
 });
 </script></div>
+    
     <!-- qoob starter -->
-    <script type="text/javascript" src="assets/js/qoob-html-driver.js"></script>
-    <script type="text/javascript" src="qoob/qoob-frontend-starter.js"></script>
-    <script type="text/javascript">
-    var qoobLibs = [{"url":"qoob/blocks","update":"qoob/blocks/lib.json","version":"2.0.0","name":"Default","res":[{"type":"css","name":"qoob-default-css","src":"lib.css"},{"type":"css","name":"glyphicons-css","src":"glyphicons/assets/css/glyphicons.css"},{"type":"css","name":"fontawesome-css","src":"fontawesome/assets/css/fontawesome.css"},{"type":"js","name":"qoob-default-js","src":"qoob/blocks/lib.js","backend":true}]},{"url":"data/blocks","update":"data/blocks/lib.json","version":"1.0.0","name":"Headers and footers","res":[{"type":"css","name":"qoob-default-headers-footers-css","src":"lib.css"},{"type":"js","name":"qoob-default-headers-footers-js","src":"data/blocks/lib.js","backend":true}]}];
-    var starter = new QoobStarter({
-        "driver": new QoobHtmlDriver({
-            "libs": qoobLibs
-        })
-    });
-    </script>    <!-- end qoob starter -->
+    
     <!-- Theme js -->
     <script src="assets/js/skip-link-focus-fix.js"></script>
     <script src="assets/js/hoverIntent.js"></script>
