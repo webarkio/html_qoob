@@ -4,6 +4,7 @@
 
 1. Create dir `html_qoob` and go inside it
 2. `git clone --recursive https://github.com/webarkio/html_qoob.git`
+3. `Submodule Update` (check the box Recursive in Submodule Update Options)
 4. `npm install`
 5. `npm start` or `node server`
 
