@@ -74,6 +74,11 @@ textarea {
     box-sizing: border-box;
 }
 
+
+/*--------------------------------------------------------------
+# Elements
+--------------------------------------------------------------*/
+
 .dashboar-wrap {
     width: 100%;
     min-height: 100vh;
@@ -82,18 +87,17 @@ textarea {
 }
 
 @media (min-width: 1200px) {
-	.dashboar-wrap {
-	    background-image: url(../img/background.jpg);
-	    background-image: -webkit-image-set(url(../img/background-retina.jpg) 1x, url(../img/background-retina.jpg) 2x);
-	    background-repeat: no-repeat;
-	    background-size: contain;
-	    background-position: center center;
-	}
+    .dashboar-wrap {
+        background-image: url(../img/background.jpg);
+        background-image: -webkit-image-set(url(../img/background-retina.jpg) 1x, url(../img/background-retina.jpg) 2x);
+        background-repeat: no-repeat;
+        background-size: contain;
+        background-position: center center;
+    }
 }
 
 .dashboard-container {
     max-width: 800px;
-    min-width: 320px;
     margin-right: auto;
     margin-left: auto;
     margin-top: 132px;
@@ -117,8 +121,8 @@ textarea {
 }
 
 .dashboard-input-container {
-	position: relative;
-	float: left;
+    position: relative;
+    float: left;
     width: 75%;
 }
 
@@ -130,7 +134,6 @@ textarea {
     font-family: 'robotolight';
     font-size: 18px;
 }
-
 
 .dashboard-input-text {
     height: 60px;
@@ -144,7 +147,7 @@ textarea {
 }
 
 .dashboard-input-submit {
-	float: left;
+    float: left;
     height: 60px;
     border: none;
     width: 25%;
@@ -166,46 +169,46 @@ textarea {
 }
 
 .dashboard-form {
-	overflow: hidden;
-	margin-bottom: 105px;
+    overflow: hidden;
+    margin-bottom: 105px;
 }
 
 .dashboard-list-title {
-	font-family: 'robotoblack';
-	font-size: 36px;
-	text-transform: uppercase;
-	letter-spacing: 1px;
-	margin-bottom: 34px;
+    font-family: 'robotoblack';
+    font-size: 36px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 34px;
 }
 
 .dashboard-container-list table {
-	font-family: 'robotoregular';
+    font-family: 'robotoregular';
 }
 
 .dashboard-container-list table tr {
-	vertical-align: top;
+    vertical-align: top;
 }
 
 .dashboard-container-list table td.name {
-	min-width: 137px;
-	font-family: 'robotolight';
-	font-size: 18px;
+    min-width: 137px;
+    font-family: 'robotolight';
+    font-size: 18px;
     letter-spacing: 0.3px;
     padding-bottom: 19px;
 }
 
 .dashboard-container-list table td a {
-	font-size: 14px;
-	letter-spacing: 0.6px;
+    font-size: 14px;
+    letter-spacing: 0.6px;
 }
 
 .dashboard-container-list table td a > i {
-	display: inline;
+    display: inline;
 }
 
 .dashboard-container-list table td.view a,
 .dashboard-container-list table td.edit a {
-	color: #0084ff;	
+    color: #0084ff;
 }
 
 .dashboard-container-list table td.edit,
@@ -214,35 +217,30 @@ textarea {
 }
 
 .dashboard-container-list table td.delete a {
-	color: #ec4067;
+    color: #ec4067;
 }
 
 @media (max-width: 480px) {
-	.dashboard-container-list table td a {
-		font-size: 18px;
-	}
-	.dashboard-container-list table span.text {
-		display: none;
-	}
-
-	.dashboard-input-container,
-	.dashboard-input-submit {
-		float: none;
-		width: 100%;
-	}
-
-	.dashboard-input-text,
-	.dashboard-input-submit {
-		border-radius: 4px 4px;
-	}
-
-	.dashboard-input-submit {
-    	margin-top: 10px;
-   	}
-}
-
-@media (max-width: 320px) {
-	.dashboard-container {
-    	margin: 0 -15px;
-	}
+    .dashboard-title {
+        background: transparent;
+        padding: 0;
+    }
+    .dashboard-container-list table td a {
+        font-size: 18px;
+    }
+    .dashboard-container-list table span.text {
+        display: none;
+    }
+    .dashboard-input-container,
+    .dashboard-input-submit {
+        float: none;
+        width: 100%;
+    }
+    .dashboard-input-text,
+    .dashboard-input-submit {
+        border-radius: 4px 4px;
+    }
+    .dashboard-input-submit {
+        margin-top: 10px;
+    }
 }
