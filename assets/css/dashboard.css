@@ -106,7 +106,7 @@ textarea {
     font-family: 'robotoblack';
     color: #000000;
     padding-left: 80px;
-    margin-bottom: 43px;
+    margin-bottom: 54px;
     line-height: 56px;
     letter-spacing: 1.5px;
     background-image: url(../img/logo.png);
@@ -149,7 +149,7 @@ textarea {
     border: none;
     width: 25%;
     background-color: #0084ff;
-    border-radius: 0 4px 4px 0;
+    border-radius: 0 6px 6px 0;
     font-family: 'robotobold';
     color: #ffffff;
     text-transform: uppercase;
@@ -167,7 +167,7 @@ textarea {
 
 .dashboard-form {
 	overflow: hidden;
-	margin-bottom: 100px;
+	margin-bottom: 105px;
 }
 
 .dashboard-list-title {
