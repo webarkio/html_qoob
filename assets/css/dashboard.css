@@ -110,7 +110,7 @@ textarea {
     font-family: 'robotoblack';
     color: #000000;
     padding-left: 80px;
-    margin-bottom: 54px;
+    margin-bottom: 46px;
     line-height: 56px;
     letter-spacing: 1.5px;
     background-image: url(../img/logo.png);
@@ -170,7 +170,7 @@ textarea {
 
 .dashboard-form {
     overflow: hidden;
-    margin-bottom: 105px;
+    margin-bottom: 94px;
 }
 
 .dashboard-list-title {
