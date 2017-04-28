@@ -5,33 +5,28 @@
     <meta charset="UTF-8">
     <title>Qoob Pages</title>
     <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+    <link rel="stylesheet" href="assets/css/dashboard.css">
+    <link rel="stylesheet" href="assets/css/fonts/fonts.css">
+    <link rel="stylesheet" href="assets/css/font-awesome.min.css">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <style>
-        body{ font-family: "Helvetica Neue"; font-size: 2em;font-weight: 300;}
-        h1, h2{text-align: center;  }
-        a, a:hover, a:visited {color: blue;} 
-        a.delete, a:hover.delete, a:visited.delete {color: red;} 
-        .create_page {text-align: center; }
-        .create_page table{margin: auto;}
-        .create_page table td{padding: 4px; text-align: left;}
-        input[type="text"] {text-align: right; padding:15px; font-size: 1em; width:150px;}
-        input[type="submit"] {text-align: center; padding:15px; font-size: 1em; width:150px; margin-top:20px; }
-    </style>
 </head>
 
 <body>
-    <h1>Qoob Page Builder</h1>
-    <div class="create_page">
-    <form onsubmit="document.location.href=$('#pageName').val()+'.html?edit';return false;" >
-    New page  <input type="text" name="name" id="pageName">.html
-        <input type="submit" name="Create" value="Create">
-        </form>
+    <div class="dashboar-wrap">
+        <div class="dashboard-container">
+            <h1 class="dashboard-title">Qoob html page builder</h1>
+                <form onsubmit="document.location.href=$('#pageName').val()+'.html?edit';return false;" class="dashboard-form">
+                    <div class="dashboard-input-container" data-text=".html">
+                        <input class="dashboard-input-text" type="text" name="name" id="pageName" placeholder="Enter your website url">
+                    </div>
+                    <input class="dashboard-input-submit" type="submit" name="Create" value="Create">
+                </form>
+                
+                <h2 class="dashboard-list-title">Pages:</h2>
+                <div class="dashboard-container-list">
+                    <!-- qoob pages list -->
+                </div>
+        </div>
     </div>
-    <h2>Qoob Pages</h2>
-    <div class="create_page">
-    <!-- qoob pages list -->
-    </div>
-
 </body>
-
 </html>

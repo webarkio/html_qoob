@@ -1,0 +1,248 @@
+/*--------------------------------------------------------------
+# Normalize
+--------------------------------------------------------------*/
+
+body {
+    margin: 0;
+    position: relative;
+}
+
+img {
+    border: 0;
+}
+
+button,
+input,
+optgroup,
+select,
+textarea {
+    color: inherit;
+    font: inherit;
+    margin: 0;
+}
+
+button {
+    overflow: visible;
+}
+
+button,
+select {
+    text-transform: none;
+}
+
+button,
+html input[type="button"],
+input[type="reset"],
+input[type="submit"] {
+    -webkit-appearance: button;
+    cursor: pointer;
+}
+
+button[disabled],
+html input[disabled] {
+    cursor: default;
+}
+
+button::-moz-focus-inner,
+input::-moz-focus-inner {
+    border: 0;
+    padding: 0;
+}
+
+input {
+    line-height: normal;
+}
+
+input[type="checkbox"],
+input[type="radio"] {
+    box-sizing: border-box;
+    padding: 0;
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+    height: auto;
+}
+
+input[type="search"]::-webkit-search-cancel-button,
+input[type="search"]::-webkit-search-decoration {
+    -webkit-appearance: none;
+}
+
+input,
+textarea {
+    box-sizing: border-box;
+}
+
+.dashboar-wrap {
+    width: 100%;
+    min-height: 100vh;
+    background-color: #e3e3e3;
+    overflow: hidden;
+}
+
+@media (min-width: 1200px) {
+	.dashboar-wrap {
+	    background-image: url(../img/background.jpg);
+	    background-image: -webkit-image-set(url(../img/background-retina.jpg) 1x, url(../img/background-retina.jpg) 2x);
+	    background-repeat: no-repeat;
+	    background-size: contain;
+	    background-position: center center;
+	}
+}
+
+.dashboard-container {
+    max-width: 800px;
+    min-width: 320px;
+    margin-right: auto;
+    margin-left: auto;
+    margin-top: 132px;
+    padding: 0 15px;
+}
+
+.dashboard-title {
+    text-transform: uppercase;
+    font-size: 54px;
+    font-family: 'robotoblack';
+    color: #000000;
+    padding-left: 80px;
+    margin-bottom: 43px;
+    line-height: 56px;
+    letter-spacing: 1.5px;
+    background-image: url(../img/logo.png);
+    background-image: -webkit-image-set(url(../img/logo-retina.png) 1x, url(../img/logo-retina.png) 2x);
+    background-repeat: no-repeat;
+    background-position: left center;
+    background-size: 57px 56px;
+}
+
+.dashboard-input-container {
+	position: relative;
+	float: left;
+    width: 75%;
+}
+
+.dashboard-input-container:after {
+    content: attr(data-text);
+    position: absolute;
+    right: 23px;
+    top: 18px;
+    font-family: 'robotolight';
+    font-size: 18px;
+}
+
+
+.dashboard-input-text {
+    height: 60px;
+    border: none;
+    width: 100%;
+    border-radius: 4px 0 0 4px;
+    padding-left: 26px;
+    padding-right: 66px;
+    font-family: 'robotolight';
+    font-size: 18px;
+}
+
+.dashboard-input-submit {
+	float: left;
+    height: 60px;
+    border: none;
+    width: 25%;
+    background-color: #0084ff;
+    border-radius: 0 4px 4px 0;
+    font-family: 'robotobold';
+    color: #ffffff;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.dashboard-input-text::-webkit-input-placeholder,
+.dashboard-input-text::-moz-placeholder,
+.dashboard-input-text:-moz-placeholder,
+.dashboard-input-text:-ms-input-placeholder {
+    color: #000000;
+    font-family: 'robotolight';
+    font-size: 1.8rem;
+}
+
+.dashboard-form {
+	overflow: hidden;
+	margin-bottom: 100px;
+}
+
+.dashboard-list-title {
+	font-family: 'robotoblack';
+	font-size: 36px;
+	text-transform: uppercase;
+	letter-spacing: 1px;
+	margin-bottom: 34px;
+}
+
+.dashboard-container-list table {
+	font-family: 'robotoregular';
+}
+
+.dashboard-container-list table tr {
+	vertical-align: top;
+}
+
+.dashboard-container-list table td.name {
+	min-width: 137px;
+	font-family: 'robotolight';
+	font-size: 18px;
+    letter-spacing: 0.3px;
+    padding-bottom: 19px;
+}
+
+.dashboard-container-list table td a {
+	font-size: 14px;
+	letter-spacing: 0.6px;
+}
+
+.dashboard-container-list table td a > i {
+	display: inline;
+}
+
+.dashboard-container-list table td.view a,
+.dashboard-container-list table td.edit a {
+	color: #0084ff;	
+}
+
+.dashboard-container-list table td.edit,
+.dashboard-container-list table td.delete {
+    padding-left: 28px;
+}
+
+.dashboard-container-list table td.delete a {
+	color: #ec4067;
+}
+
+@media (max-width: 480px) {
+	.dashboard-container-list table td a {
+		font-size: 18px;
+	}
+	.dashboard-container-list table span.text {
+		display: none;
+	}
+
+	.dashboard-input-container,
+	.dashboard-input-submit {
+		float: none;
+		width: 100%;
+	}
+
+	.dashboard-input-text,
+	.dashboard-input-submit {
+		border-radius: 4px 4px;
+	}
+
+	.dashboard-input-submit {
+    	margin-top: 10px;
+   	}
+}
+
+@media (max-width: 320px) {
+	.dashboard-container {
+    	margin: 0 -15px;
+	}
+}
