@@ -9,7 +9,7 @@ function QoobHtmlDriver(options) {
     var options = options || {};
     this.page = options.page || 'index';
     this.libsJsonUrl = options.libsJsonUrl || "data/libs.json";
-    this.pageDataUrl = options.pageDataUrl || "data/pages/"+this.page+".json";
+    this.pageDataUrl = options.pageDataUrl || "data/pages/" + this.page + ".json";
     this.pageTemplatesDataUrl = options.pageTemplatesDataUrl || "data/templates.json";
     this.frontendPageUrl = options.frontendPageUrl || "layout.html";
     this.saveUrl = options.saveUrl || "save";
@@ -68,7 +68,7 @@ QoobHtmlDriver.prototype.savePageData = function(data, cb) {
  * @param {loadPageDataCallback} cb - A callback to run.
  */
 QoobHtmlDriver.prototype.loadPageData = function(cb) {
-    var self=this;
+    var self = this;
     jQuery.ajax({
         dataType: "json",
         url: this.pageDataUrl,
@@ -87,9 +87,9 @@ QoobHtmlDriver.prototype.loadPageData = function(cb) {
  * @param {loadQoobDataCallback} cb - A callback to run.
  */
 QoobHtmlDriver.prototype.loadLibrariesData = function(cb) {
-    if(this.libs){
+    if (this.libs) {
         cb(null, this.libs);
-    }else{
+    } else {
         jQuery.ajax({
             dataType: "json",
             url: this.libsJsonUrl,
@@ -98,27 +98,27 @@ QoobHtmlDriver.prototype.loadLibrariesData = function(cb) {
                 cb(textStatus);
             },
             success: function(data) {
-                var totalLibs=data.length;
-                var loadedLibs=0;
-                var libs=[];
+                var totalLibs = data.length;
+                var loadedLibs = 0;
+                var libs = [];
                 for (var i = 0; i < data.length; i++) {
                     jQuery.ajax({
                         dataType: "json",
                         url: data[i],
                         error: function(jqXHR, textStatus) {
-                            loadedLibs=loadedLibs+1;
+                            loadedLibs = loadedLibs + 1;
                         },
                         success: function(lib) {
-                            loadedLibs=loadedLibs+1;
-                            lib.url=this.url.replace('lib.json','');
+                            loadedLibs = loadedLibs + 1;
+                            lib.url = this.url.replace('lib.json', '');
                             libs.push(lib);
-                            if(loadedLibs==totalLibs){
+                            if (loadedLibs == totalLibs) {
                                 cb(null, libs);
                             }
                         }
                     });
 
-                    
+
                 }
                 //cb(null, data);
             }
@@ -175,14 +175,14 @@ QoobHtmlDriver.prototype.mainMenu = function(staticMenu) {
         "label": "Save as template",
         "action": "",
         "icon": ""
-    },{
+    }, {
         "id": "show-frontend",
         "label": "Show on frontend",
-        "action": function(){
+        "action": function() {
             window.open(
-              self.page+".html",
-              '_blank'
-            );            
+                self.page + ".html",
+                '_blank'
+            );
         },
         "icon": ""
     }];
@@ -216,6 +216,7 @@ QoobHtmlDriver.prototype.fieldImageActions = function(actions) {
                     self.upload(formData, function(error, url) {
                         if ('' !== url) {
                             imageField.changeImage(url);
+                            imageField.$el.find('input[type=file]').val('');
                             if (imageField.$el.find('.edit-image').hasClass('empty')) {
                                 imageField.$el.find('.edit-image').removeClass('empty');
                             }
@@ -230,10 +231,67 @@ QoobHtmlDriver.prototype.fieldImageActions = function(actions) {
     }, {
         "id": "reset",
         "label": "Reset to default",
-        "action": function(imageField){
+        "action": function(imageField) {
             imageField.changeImage(imageField.options.defaults);
             if (imageField.$el.find('.edit-image').hasClass('empty')) {
                 imageField.$el.find('.edit-image').removeClass('empty');
+            }
+        },
+        "icon": ""
+    }];
+
+    var glueActions = actions.concat(customActions);
+
+    return glueActions;
+};
+
+/**
+ * Custom field image action
+ * @param {Array} actions
+ * @returns {Array}
+ */
+QoobHtmlDriver.prototype.fieldVideoActions = function(actions) {
+    var self = this;
+    var customActions = [{
+        "id": "upload",
+        "label": "Upload",
+        "action": function(videoField) {
+            videoField.$el.find('.video-control').find('.input-file').remove();
+            videoField.$el.find('.video-control').append('<input type="file" class="input-file" name="video">');
+
+            videoField.$el.find('input.input-file').trigger('click');
+
+            videoField.$el.find('input.input-file').change(function() {
+                var s = this;
+                var file = jQuery(this).val();
+
+                if (file.match(/.(mp4)$/i)) {
+                    var formData = new FormData();
+                    formData.append('video', jQuery(this)[0].files[0], jQuery(this)[0].files[0].name);
+                    self.upload(formData, function(error, url) {
+                        if ('' !== url) {
+                            var src = { 'url': url, preview: '' };
+                            videoField.changeVideo(src);
+                            jQuery(s).val('');
+                            if ( ! videoField.$el.find('.edit-video').hasClass('empty') ) {
+                                videoField.$el.find('.edit-video').addClass('empty');
+                            }
+                        }
+                    });
+                } else {
+                    console.error('file format is not appropriate');
+                }
+            });
+
+        },
+        "icon": ""
+    }, {
+        "id": "reset",
+        "label": "Reset to default",
+        "action": function(videoField) {
+            videoField.changeVideo(videoField.options.defaults);
+            if (videoField.$el.find('.edit-video').hasClass('empty')) {
+                videoField.$el.find('.edit-video').removeClass('empty');
             }
         },
         "icon": ""

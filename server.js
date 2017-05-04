@@ -4,9 +4,7 @@ var http = require('http'),
     formidable = require('formidable'),
     path = require('path'),
     url = require('url'),
-    Loader = require('./qoob/loader'),
-    fs = require('fs');
-
+    Loader = require('./qoob/loader');
 
 
 // Create the http server
@@ -178,16 +176,30 @@ function onRequest(req, res) {
 
         //Upload image
         if (req.url === "/upload") {
+            var pathUpload = path.join(__dirname, '/uploads');
+            var uploadName;
+            // if isn't exist "upload" folder
+            if (!fs.existsSync(pathUpload)) {
+                fs.mkdirSync(pathUpload);
+            }
+
             // parse a file upload
             var form = new formidable.IncomingForm();
 
             // store all uploads in the /uploads directory
-            form.uploadDir = path.join(__dirname, '/uploads');
+            form.uploadDir = pathUpload;
 
             // every time a file has been uploaded successfully,
             // rename it to it's orignal name
             form.on('file', function(field, file) {
-                fs.rename(file.path, path.join(form.uploadDir, file.name));
+                var filePath = pathUpload + "\\" + file.name;
+
+                if (fs.existsSync(filePath)) {
+                    uploadName = Date.now() + '.' + file.name;
+                } else {
+                    uploadName = file.name;
+                }
+                fs.rename(file.path, path.join(form.uploadDir, uploadName));
             });
 
             // log any errors that occur
@@ -198,12 +210,12 @@ function onRequest(req, res) {
             // once all the files have been uploaded, send a response to the client
             form.on('end', function() {
                 /* The file name of the uploaded file */
-                var fileName = this.openedFiles[0].name;
+                // var fileName = this.openedFiles[0].name;
 
                 var pathImg = form.uploadDir.replace(__dirname, '');
 
                 var response = {
-                    url: pathImg.replace(/\\/g, "/") + "/" + fileName
+                    url: pathImg.replace(/\\/g, "/") + "/" + uploadName
                 };
 
                 res.end(JSON.stringify(response));
