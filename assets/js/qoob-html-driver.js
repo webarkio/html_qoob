@@ -246,7 +246,7 @@ QoobHtmlDriver.prototype.fieldImageActions = function(actions) {
 };
 
 /**
- * Custom field image action
+ * Custom field video action
  * @param {Array} actions
  * @returns {Array}
  */
