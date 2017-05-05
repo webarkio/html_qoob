@@ -265,7 +265,7 @@ QoobHtmlDriver.prototype.fieldVideoActions = function(actions) {
                 var s = this;
                 var file = jQuery(this).val();
 
-                if (file.match(/.(mp4)$/i)) {
+                if (file.match(/.(mp4|ogv|webm)$/i)) {
                     var formData = new FormData();
                     formData.append('video', jQuery(this)[0].files[0], jQuery(this)[0].files[0].name);
                     self.upload(formData, function(error, url) {
