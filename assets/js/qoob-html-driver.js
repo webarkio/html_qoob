@@ -201,13 +201,12 @@ QoobHtmlDriver.prototype.fieldImageActions = function(actions) {
         "id": "upload",
         "label": "Upload",
         "action": function(imageField) {
-            if (!imageField.$el.find('.input-file').length) {
-                imageField.$el.find('.image-control').append('<input type="file" class="input-file" name="image">');
-            }
+            imageField.$el.find('.image-control').find('.input-file').remove();
+            imageField.$el.find('.image-control').append('<input type="file" class="input-file" name="image">');
 
-            imageField.$el.find('input[type=file]').click();
+            imageField.$el.find('.input-file').trigger('click');
 
-            imageField.$el.find('input[type=file]').change(function() {
+            imageField.$el.find('.input-file').change(function() {
                 var file = imageField.$el.find('input[type=file]').val();
 
                 if (file.match(/.(jpg|jpeg|png|gif)$/i)) {
@@ -233,7 +232,12 @@ QoobHtmlDriver.prototype.fieldImageActions = function(actions) {
         "label": "Reset to default",
         "action": function(imageField) {
             imageField.changeImage(imageField.options.defaults);
-            if (imageField.$el.find('.edit-image').hasClass('empty')) {
+
+            if ('' === imageField.options.defaults) {
+                if (!imageField.$el.find('.edit-image').hasClass('empty')) {
+                    imageField.$el.find('.edit-image').addClass('empty');
+                }
+            } else {
                 imageField.$el.find('.edit-image').removeClass('empty');
             }
         },
@@ -273,7 +277,7 @@ QoobHtmlDriver.prototype.fieldVideoActions = function(actions) {
                             var src = { 'url': url, preview: '' };
                             videoField.changeVideo(src);
                             jQuery(s).val('');
-                            if ( ! videoField.$el.find('.edit-video').hasClass('empty') ) {
+                            if (!videoField.$el.find('.edit-video').hasClass('empty')) {
                                 videoField.$el.find('.edit-video').addClass('empty');
                             }
                         }
@@ -304,6 +308,21 @@ QoobHtmlDriver.prototype.fieldVideoActions = function(actions) {
 
 /**
  * Upload image
+ * @param {Array} dataFile
+ * @param {uploadCallback} cb - A callback to run.
+ */
+QoobHtmlDriver.prototype.uploadImage = function(dataFile, cb) {
+    var formData = new FormData();
+    formData.append('image', dataFile[0], dataFile[0].name);
+
+    this.upload(formData, function(error, url) {
+        cb(error, url);
+    });
+};
+
+
+/**
+ * Upload file
  * @param {Array} data
  * @param {uploadCallback} cb - A callback to run.
  */
