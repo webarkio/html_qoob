@@ -208,7 +208,6 @@ QoobHtmlDriver.prototype.fieldImageActions = function(actions) {
 
             imageField.$el.find('.input-file').change(function() {
                 var file = imageField.$el.find('input[type=file]').val();
-
                 if (file.match(/.(jpg|jpeg|png|gif)$/i)) {
                     var formData = new FormData();
                     formData.append('image', imageField.$el.find('input[type=file]')[0].files[0], imageField.$el.find('input[type=file]')[0].files[0].name);
