@@ -2,7 +2,8 @@
 <html>
 
 <head>
-	<link rel="icon" href="favicon.ico" sizes="32x32" />
+    <link rel="icon" href="favicon.ico" sizes="32x32" />
+    <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1, maximum-scale=1">
     <script type="text/javascript" src="qoob/qoob-backend-starter.js"></script>
     <script type="text/javascript" src="assets/js/qoob-html-driver.js"></script>
     <script type="text/javascript">
@@ -14,6 +15,23 @@
             "page": url[1]
         })
     });
+    /* Simple
+    var pathname = window.location.pathname.replace(/\/.*\..*?$/g, '/');
+    var qoobUrl = window.location.protocol + "//" + window.location.hostname + (window.location.port ? ':' + window.location.port : '') + pathname + (pathname.indexOf("/", pathname.length - "/".length) !== -1 ? '' : '/') + "qoob/";
+    qoobUrl = qoobUrl + (qoobUrl.indexOf("/", qoobUrl.length - "/".length) !== -1 ? '' : '/');
+
+    // console.log(qoobUrl);
+    var starter = new QoobStarter({
+        "mode": "dev",
+        "skins": {
+            'gray': qoobUrl + 'skins/gray/skin.js'
+        },
+        "skin": "gray",
+        "driver": new QoobHtmlDriver({
+            "page": url[1]
+        })
+    });
+    */
     </script>
 </head>
 
