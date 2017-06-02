@@ -19,20 +19,18 @@ jQuery(document).ready(function() {
         jQuery('.blog-list').masonry('reloadItems');
     });
 
+    // Init hammer
     var hammer = new Hammer.Manager(document.documentElement);
     var swipe = new Hammer.Swipe({ direction: Hammer.DIRECTION_HORIZONTAL });
     hammer.add(swipe);
     hammer.on("swiperight swipeleft", function(e) {
         if (e.type === 'swiperight') {
-          console.log('swiperight');
             parent.postMessage("SwipeRightPageMessage", "*");
         } else if (e.type === 'swipeleft') {
-          console.log('swipeleft');
             parent.postMessage("SwipeLeftPageMessage", "*");
         }
     });
 });
-
 
 
 // Loader fading out
