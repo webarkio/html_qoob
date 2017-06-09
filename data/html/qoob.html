@@ -8,14 +8,15 @@
     <script type="text/javascript" src="assets/js/qoob-html-driver.js"></script>
     <script type="text/javascript">
     var url = /.*\/(.*?)\.html.*/.exec(window.location.href);
-    /*
+    
     var starter = new QoobStarter({
         "mode": "dev",
         "driver": new QoobHtmlDriver({
             "page": url[1]
         })
     });
-    */
+    
+    /*
     var pathname = window.location.pathname.replace(/\/.*\..*?$/g, '/');
     var qoobUrl = window.location.protocol + "//" + window.location.hostname + (window.location.port ? ':' + window.location.port : '') + pathname + (pathname.indexOf("/", pathname.length - "/".length) !== -1 ? '' : '/') + "qoob/";
     qoobUrl = qoobUrl + (qoobUrl.indexOf("/", qoobUrl.length - "/".length) !== -1 ? '' : '/');
@@ -31,7 +32,7 @@
             "page": url[1]
         })
     });
-    
+    */
     </script>
 </head>
 
