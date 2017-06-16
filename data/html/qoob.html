@@ -11,28 +11,11 @@
     
     var starter = new QoobStarter({
         "mode": "dev",
+        // "skin": "simple",
         "driver": new QoobHtmlDriver({
             "page": url[1]
         })
     });
-    
-    /*
-    var pathname = window.location.pathname.replace(/\/.*\..*?$/g, '/');
-    var qoobUrl = window.location.protocol + "//" + window.location.hostname + (window.location.port ? ':' + window.location.port : '') + pathname + (pathname.indexOf("/", pathname.length - "/".length) !== -1 ? '' : '/') + "qoob/";
-    qoobUrl = qoobUrl + (qoobUrl.indexOf("/", qoobUrl.length - "/".length) !== -1 ? '' : '/');
-
-    // console.log(qoobUrl);
-    var starter = new QoobStarter({
-        "mode": "dev",
-        "skins": {
-            'simple': qoobUrl + 'skins/simple/skin.js'
-        },
-        "skin": "simple",
-        "driver": new QoobHtmlDriver({
-            "page": url[1]
-        })
-    });
-    */
     </script>
 </head>
 
