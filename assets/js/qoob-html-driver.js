@@ -201,8 +201,8 @@ QoobHtmlDriver.prototype.fieldImageActions = function(actions) {
         "id": "upload",
         "label": "Upload",
         "action": function(imageField) {
-            imageField.$el.find('.image-control').find('.input-file').remove();
-            imageField.$el.find('.image-control').append('<input type="file" class="input-file" name="image">');
+            imageField.$el.find('.input-file').remove();
+            imageField.$el.append('<input type="file" class="input-file" name="image">');
 
             imageField.$el.find('.input-file').trigger('click');
 
@@ -215,8 +215,8 @@ QoobHtmlDriver.prototype.fieldImageActions = function(actions) {
                         if ('' !== url) {
                             imageField.changeImage(url);
                             imageField.$el.find('input[type=file]').val('');
-                            if (imageField.$el.find('.edit-image').hasClass('empty')) {
-                                imageField.$el.find('.edit-image').removeClass('empty');
+                            if (imageField.$el.find('.empty').length > 0) {
+                                imageField.$el.find('.empty').removeClass('empty');
                             }
                         }
                     });
@@ -233,11 +233,11 @@ QoobHtmlDriver.prototype.fieldImageActions = function(actions) {
             imageField.changeImage(imageField.options.defaults);
 
             if ('' === imageField.options.defaults) {
-                if (!imageField.$el.find('.edit-image').hasClass('empty')) {
-                    imageField.$el.find('.edit-image').addClass('empty');
+                if (!imageField.$el.find('.empty').length > 0) {
+                    imageField.$el.find('.field-image-container').addClass('empty');
                 }
             } else {
-                imageField.$el.find('.edit-image').removeClass('empty');
+                imageField.$el.find('.empty').removeClass('empty');
             }
         },
         "icon": ""
@@ -259,12 +259,12 @@ QoobHtmlDriver.prototype.fieldVideoActions = function(actions) {
         "id": "upload",
         "label": "Upload",
         "action": function(videoField) {
-            videoField.$el.find('.video-control').find('.input-file').remove();
-            videoField.$el.find('.video-control').append('<input type="file" class="input-file" name="video">');
+            videoField.$el.find('.input-file').remove();
+            videoField.$el.append('<input type="file" class="input-file" name="video">');
 
-            videoField.$el.find('input.input-file').trigger('click');
+            videoField.$el.find('.input-file').trigger('click');
 
-            videoField.$el.find('input.input-file').change(function() {
+            videoField.$el.find('.input-file').change(function() {
                 var s = this;
                 var file = jQuery(this).val();
 
@@ -276,8 +276,8 @@ QoobHtmlDriver.prototype.fieldVideoActions = function(actions) {
                             var src = { 'url': url, preview: '' };
                             videoField.changeVideo(src);
                             jQuery(s).val('');
-                            if (!videoField.$el.find('.edit-video').hasClass('empty')) {
-                                videoField.$el.find('.edit-video').addClass('empty');
+                            if (!videoField.$el.find('.empty').length > 0) {
+                                videoField.$el.find('.field-video-container').addClass('empty');
                             }
                         }
                     });
@@ -293,8 +293,8 @@ QoobHtmlDriver.prototype.fieldVideoActions = function(actions) {
         "label": "Reset to default",
         "action": function(videoField) {
             videoField.changeVideo(videoField.options.defaults);
-            if (videoField.$el.find('.edit-video').hasClass('empty')) {
-                videoField.$el.find('.edit-video').removeClass('empty');
+            if (videoField.$el.find('.empty').length > 0) {
+                videoField.$el.find('.empty').removeClass('empty');
             }
         },
         "icon": ""
