@@ -24,7 +24,7 @@ function QoobHtmlDriver(options) {
  * 
  * @returns {String}
  */
-QoobHtmlDriver.prototype.getIframePageUrl = function(pageId) {
+QoobHtmlDriver.prototype.getIframePageUrl = function() {
     return this.frontendPageUrl;
 };
 
@@ -33,7 +33,7 @@ QoobHtmlDriver.prototype.getIframePageUrl = function(pageId) {
  * 
  * @returns {String}
  */
-QoobHtmlDriver.prototype.exit = function(pageId) {
+QoobHtmlDriver.prototype.exit = function() {
     window.location.href = '/qoob';
 };
 
@@ -68,7 +68,6 @@ QoobHtmlDriver.prototype.savePageData = function(data, cb) {
  * @param {loadPageDataCallback} cb - A callback to run.
  */
 QoobHtmlDriver.prototype.loadPageData = function(cb) {
-    var self = this;
     jQuery.ajax({
         dataType: "json",
         url: this.pageDataUrl,
@@ -105,7 +104,7 @@ QoobHtmlDriver.prototype.loadLibrariesData = function(cb) {
                     jQuery.ajax({
                         dataType: "json",
                         url: data[i],
-                        error: function(jqXHR, textStatus) {
+                        error: function() {
                             loadedLibs = loadedLibs + 1;
                         },
                         success: function(lib) {
