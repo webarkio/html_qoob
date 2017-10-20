@@ -275,8 +275,8 @@ QoobHtmlDriver.prototype.fieldVideoActions = function(actions) {
                             var src = { 'url': url, preview: '' };
                             videoField.changeVideo(src);
                             jQuery(s).val('');
-                            if (!videoField.$el.find('.empty').length > 0) {
-                                videoField.$el.find('.field-video-container').addClass('empty');
+                            if (!videoField.$el.find('.empty-preview').length > 0) {
+                                videoField.$el.find('.field-video-container').addClass('empty-preview');
                             }
                         }
                     });
@@ -294,6 +294,9 @@ QoobHtmlDriver.prototype.fieldVideoActions = function(actions) {
             videoField.changeVideo(videoField.options.defaults);
             if (videoField.$el.find('.empty').length > 0) {
                 videoField.$el.find('.empty').removeClass('empty');
+            }
+            if (videoField.$el.find('.empty-preview').length > 0) {
+                videoField.$el.find('.empty-preview').removeClass('empty-preview');
             }
         },
         "icon": ""
