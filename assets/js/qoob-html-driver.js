@@ -314,7 +314,7 @@ QoobHtmlDriver.prototype.fieldVideoActions = function(actions) {
  */
 QoobHtmlDriver.prototype.uploadImage = function(dataFile, cb) {
     var formData = new FormData();
-    formData.append('video', dataFile[0].files[0], dataFile.files[0].name);
+    formData.append('image', dataFile[0], dataFile[0].name);
 
     this.upload(formData, function(error, url) {
         cb(error, url);
@@ -328,7 +328,7 @@ QoobHtmlDriver.prototype.uploadImage = function(dataFile, cb) {
  */
 QoobHtmlDriver.prototype.uploadVideo = function(dataFile, cb) {
     var formData = new FormData();
-    formData.append('image', dataFile[0], dataFile[0].name);
+    formData.append('video', dataFile[0], dataFile[0].name);
 
     this.upload(formData, function(error, url) {
         cb(error, url);
