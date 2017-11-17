@@ -275,8 +275,8 @@ QoobHtmlDriver.prototype.fieldVideoActions = function(actions) {
                             var src = { 'url': url, preview: '' };
                             videoField.changeVideo(src);
                             jQuery(s).val('');
-                            if (!videoField.$el.find('.empty').length > 0) {
-                                videoField.$el.find('.field-video-container').addClass('empty');
+                            if (!videoField.$el.find('.empty-preview').length > 0) {
+                                videoField.$el.find('.field-video-container').addClass('empty-preview');
                             }
                         }
                     });
@@ -295,6 +295,9 @@ QoobHtmlDriver.prototype.fieldVideoActions = function(actions) {
             if (videoField.$el.find('.empty').length > 0) {
                 videoField.$el.find('.empty').removeClass('empty');
             }
+            if (videoField.$el.find('.empty-preview').length > 0) {
+                videoField.$el.find('.empty-preview').removeClass('empty-preview');
+            }
         },
         "icon": ""
     }];
@@ -311,7 +314,7 @@ QoobHtmlDriver.prototype.fieldVideoActions = function(actions) {
  */
 QoobHtmlDriver.prototype.uploadImage = function(dataFile, cb) {
     var formData = new FormData();
-    formData.append('video', dataFile[0].files[0], dataFile.files[0].name);
+    formData.append('image', dataFile[0], dataFile[0].name);
 
     this.upload(formData, function(error, url) {
         cb(error, url);
@@ -325,7 +328,7 @@ QoobHtmlDriver.prototype.uploadImage = function(dataFile, cb) {
  */
 QoobHtmlDriver.prototype.uploadVideo = function(dataFile, cb) {
     var formData = new FormData();
-    formData.append('image', dataFile[0], dataFile[0].name);
+    formData.append('video', dataFile[0], dataFile[0].name);
 
     this.upload(formData, function(error, url) {
         cb(error, url);
