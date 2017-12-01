@@ -6,7 +6,7 @@
  */
 //module.exports.QoobHtmlDriver = QoobHtmlDriver;
 function QoobHtmlDriver(options) {
-    var options = options || {};
+    options = options || {};
     this.page = options.page || 'index';
     this.libsJsonUrl = options.libsJsonUrl || "data/libs.json";
     this.pageDataUrl = options.pageDataUrl || "data/pages/" + this.page + ".json";
@@ -17,6 +17,7 @@ function QoobHtmlDriver(options) {
     this.savelibsJsonUrl = options.savelibsJsonUrl || "save-labraries";
     this.mainMenuUrl = options.mainMenuUrl || "data/main_menu.json";
     this.libs = options.libs || null;
+    this.translationsUrl = options.translationsUrl || null;
 }
 
 /**
@@ -34,7 +35,7 @@ QoobHtmlDriver.prototype.getIframePageUrl = function() {
  * @returns {String}
  */
 QoobHtmlDriver.prototype.exit = function() {
-    window.location.href = '/qoob';
+    window.location.href = window.location.origin + '/qoob';
 };
 
 /**
@@ -153,6 +154,24 @@ QoobHtmlDriver.prototype.loadPageTemplates = function(cb) {
     jQuery.ajax({
         dataType: "json",
         url: this.pageTemplatesDataUrl,
+        error: function(jqXHR, textStatus) {
+            cb(textStatus);
+        },
+        success: function(data) {
+            cb(null, data);
+        }
+    });
+};
+
+/**
+ * Load translations
+ * 
+ * @param {loadTranslationsCallback} cb - A callback to run.
+ */
+QoobHtmlDriver.prototype.loadTranslations = function(cb) {
+    jQuery.ajax({
+        dataType: "json",
+        url: this.translationsUrl,
         error: function(jqXHR, textStatus) {
             cb(textStatus);
         },

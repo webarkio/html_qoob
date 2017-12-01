@@ -42,7 +42,7 @@ jQuery(document).ready(function() {
 });
 
 // Loader fading out
-jQuery(window).load(function() {
+jQuery(window).on('load', function() {
     jQuery(".loader").fadeOut();
     jQuery(".loader-wrap").delay(400).fadeOut("slow");
 });
