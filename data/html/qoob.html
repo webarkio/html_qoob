@@ -8,12 +8,12 @@
     <script type="text/javascript" src="assets/js/qoob-html-driver.js"></script>
     <script type="text/javascript">
     var url = /.*\/(.*?)\.html.*/.exec(window.location.href);
-    
     var starter = new QoobStarter({
-        "mode": "dev",
+        // "mode": "dev",
         "driver": new QoobHtmlDriver({
             "page": url[1],
-            // "translationsUrl": '../qoob/skins/simple/locale/ge.json'
+            "pages": '<!-- qoob pages list -->',
+            // "translationsUrl": '../qoob/skins/simple/locale/ru.json'
         })
     });
     </script>

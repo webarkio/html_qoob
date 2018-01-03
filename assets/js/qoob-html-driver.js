@@ -8,6 +8,8 @@
 function QoobHtmlDriver(options) {
     options = options || {};
     this.page = options.page || 'index';
+    this.pages = options.pages || null;
+    this.subDomain = options.subDomain || null;
     this.libsJsonUrl = options.libsJsonUrl || "data/libs.json";
     this.pageDataUrl = options.pageDataUrl || "data/pages/" + this.page + ".json";
     this.pageTemplatesDataUrl = options.pageTemplatesDataUrl || "data/templates.json";
@@ -46,7 +48,6 @@ QoobHtmlDriver.prototype.exit = function() {
  * @param {savePageDataCallback} cb - A callback to run.
  */
 QoobHtmlDriver.prototype.savePageData = function(data, cb) {
-    //console.log(JSON.stringify(data));
     data.page = this.page;
     jQuery.ajax({
         url: this.saveUrl,
@@ -60,7 +61,6 @@ QoobHtmlDriver.prototype.savePageData = function(data, cb) {
         }
     });
 };
-
 
 /**
  * Get page data
@@ -117,10 +117,7 @@ QoobHtmlDriver.prototype.loadLibrariesData = function(cb) {
                             }
                         }
                     });
-
-
                 }
-                //cb(null, data);
             }
         });
     }
@@ -186,16 +183,16 @@ QoobHtmlDriver.prototype.loadTranslations = function(cb) {
  * @param {Array} staticMenu
  * @returns {Array}
  */
-QoobHtmlDriver.prototype.mainMenu = function(staticMenu) {
+QoobHtmlDriver.prototype.mainMenu = function() {
     var self = this;
     var customData = [{
         "id": "save-template",
-        "label": "Save as template",
+        "label": {"save_as_template": "Save as template"},
         "action": "",
         "icon": ""
     }, {
         "id": "show-frontend",
-        "label": "Show on frontend",
+        "label": {"showOnFrontend": "Show on frontend"},
         "action": function() {
             window.open(
                 self.page + ".html",
@@ -205,7 +202,7 @@ QoobHtmlDriver.prototype.mainMenu = function(staticMenu) {
         "icon": ""
     }];
 
-    return staticMenu.concat(customData);
+    return customData;
 };
 
 /**
@@ -217,7 +214,7 @@ QoobHtmlDriver.prototype.fieldImageActions = function(actions) {
     var self = this;
     var customActions = [{
         "id": "upload",
-        "label": "Upload",
+        "label": {"upload": "Upload"},
         "action": function(imageField) {
             imageField.$el.find('.input-file').remove();
             imageField.$el.append('<input type="file" class="input-file" name="image">');
@@ -253,7 +250,7 @@ QoobHtmlDriver.prototype.fieldImageActions = function(actions) {
         "icon": ""
     }, {
         "id": "reset",
-        "label": "Reset to default",
+        "label": {"resetToDefault": "Reset to default"},
         "action": function(imageField) {
             imageField.changeImage(imageField.options.defaults);
 
@@ -284,7 +281,7 @@ QoobHtmlDriver.prototype.fieldVideoActions = function(actions) {
     var self = this;
     var customActions = [{
         "id": "upload",
-        "label": "Upload",
+        "label": {"upload": "Upload"},
         "action": function(videoField) {
             videoField.$el.find('.input-file').remove();
             videoField.$el.append('<input type="file" class="input-file" name="video">');
@@ -325,7 +322,7 @@ QoobHtmlDriver.prototype.fieldVideoActions = function(actions) {
         "icon": ""
     }, {
         "id": "reset",
-        "label": "Reset to default",
+        "label": {"resetToDefault": "Reset to default"},
         "action": function(videoField) {
             var container = videoField.$el.find('.field-video-container');
 
@@ -372,7 +369,6 @@ QoobHtmlDriver.prototype.uploadVideo = function(dataFile, cb) {
     });
 };
 
-
 /**
  * Upload file
  * @param {Array} data
@@ -394,4 +390,4 @@ QoobHtmlDriver.prototype.upload = function(data, cb) {
             cb(null, json.url);
         }
     });
-}
+};

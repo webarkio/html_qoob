@@ -2507,6 +2507,7 @@ function createInputInstance(manager) {
   } else {
     Type = TouchMouseInput;
   }
+  console.log(Type);
   return new Type(manager, inputHandler);
 }
 

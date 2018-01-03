@@ -22,8 +22,8 @@ var pathToQoobHtml = 'data/html/qoob.html';
 var pathToQoobDashboard = 'data/html/dashboard.html';
 
 function onRequest(req, res) {
-
-    var currentUrl = url.parse(req.url, true);
+    var urlStr = 'http://' + req.headers.host + req.url,
+        currentUrl = url.parse( urlStr, true );
 
     if (currentUrl.pathname === "/qoob/") {
         res.writeHead(302, {
@@ -68,10 +68,25 @@ function onRequest(req, res) {
     if (typeof currentUrl.query.edit !== 'undefined') {
         res.statusCode = 200;
         res.setHeader('Content-Type', 'text/html');
-        fs.readFile(pathToQoobHtml, 'utf8', function(err, data) {
-            res.write(data);
-            res.end();
+        fs.readdir(pathToPageData, function(err, files) {
+            var pages = [];
+            var exceptionPage = /.*\/(.*?)\.html.*/.exec(currentUrl.pathname);
+            for (var i = 0; i < files.length; i++) {
+                var file = files[i].replace('.json', '');
+                if (file !== 'empty' && file !== exceptionPage[1]) {
+                    pages.push({
+                        'url': currentUrl.protocol + '//' + currentUrl.host + '/' + files[i].replace('.json', '.html') + currentUrl.search,
+                        'title': files[i].replace('.json', '')
+                    });
+                }   
+            }
+            fs.readFile(pathToQoobHtml, 'utf8', function(err, data) {
+                data = data.replace("'<!-- qoob pages list -->'", JSON.stringify(pages));
+                res.write(data);
+                res.end();
+            });
         });
+
         return;
     }
 
@@ -154,13 +169,13 @@ function onRequest(req, res) {
 
         //Save template
         if (req.url === "/save-template") {
-            var body = '';
+            var stBody = '';
             req.on('data', function(data) {
-                body += data;
+                stBody += data;
             });
 
             req.on('end', function() {
-                var data = JSON.parse(body);
+                var data = JSON.parse(stBody);
 
                 fs.writeFile("data/templates.json", JSON.stringify(data), function(err) {
                     if (err) {

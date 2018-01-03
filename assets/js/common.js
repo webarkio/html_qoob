@@ -17,28 +17,6 @@ jQuery(document).ready(function() {
     jQuery(window).resize(function() {
         jQuery('.blog-list').masonry('reloadItems');
     });
-
-
-    if (typeof Hammer !== "undefined") {
-        // Init hammer
-        var hammer = new Hammer.Manager(document.documentElement, {
-            touchAction: 'auto',
-            inputClass: Hammer.SUPPORT_POINTER_EVENTS ? Hammer.PointerEventInput : Hammer.TouchInput,
-            recognizers: [
-                [Hammer.Swipe, {
-                    direction: Hammer.DIRECTION_HORIZONTAL
-                }]
-            ]
-        });
-
-        hammer.on("swiperight swipeleft", function(e) {
-            if (e.type === 'swiperight') {
-                parent.postMessage("SwipeRightPageMessage", "*");
-            } else if (e.type === 'swipeleft') {
-                parent.postMessage("SwipeLeftPageMessage", "*");
-            }
-        });
-    }
 });
 
 // Loader fading out
