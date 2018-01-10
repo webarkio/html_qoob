@@ -4,6 +4,7 @@ var http = require('http'),
     formidable = require('formidable'),
     path = require('path'),
     url = require('url'),
+    qs = require('querystring'),
     Loader = require('./qoob/loader');
 
 
@@ -23,7 +24,7 @@ var pathToQoobDashboard = 'data/html/dashboard.html';
 
 function onRequest(req, res) {
     var urlStr = 'http://' + req.headers.host + req.url,
-        currentUrl = url.parse( urlStr, true );
+        currentUrl = url.parse(urlStr, true);
 
     if (currentUrl.pathname === "/qoob/") {
         res.writeHead(302, {
@@ -49,7 +50,6 @@ function onRequest(req, res) {
                 res.write(data.replace("<!-- qoob pages list -->", content));
                 res.end();
             });
-
         });
         return;
     }
@@ -78,7 +78,7 @@ function onRequest(req, res) {
                         'url': currentUrl.protocol + '//' + currentUrl.host + '/' + files[i].replace('.json', '.html') + currentUrl.search,
                         'title': files[i].replace('.json', '')
                     });
-                }   
+                }
             }
             fs.readFile(pathToQoobHtml, 'utf8', function(err, data) {
                 data = data.replace("'<!-- qoob pages list -->'", JSON.stringify(pages));
@@ -92,8 +92,12 @@ function onRequest(req, res) {
 
     if (typeof currentUrl.query.delete !== 'undefined') {
         var page = currentUrl.pathname.replace('.html', '').replace('/', '');
-        fs.unlink(pathToPageData + page + ".json");
-        fs.unlink(page + ".html");
+        fs.unlink(pathToPageData + page + ".json", function(err) {
+            if (err) throw err;
+        });
+        fs.unlink(page + ".html", function(err) {
+            if (err) throw err;
+        });
         res.writeHead(302, {
             'Location': '/qoob'
         });
@@ -102,6 +106,43 @@ function onRequest(req, res) {
     }
 
     if (req.method == "POST") {
+
+        // Create page builder
+        if (req.url === "/create") {
+
+            var createBody = '';
+
+            req.on('data', function(data) {
+                createBody += data;
+
+                if (createBody.length > 1e6)
+                    req.connection.destroy();
+            });
+
+            req.on('end', function() {
+                var post = qs.parse(createBody);
+
+                // Create json file
+                fs.writeFile(pathToPageData + post.name + ".json", '{"blocks":[]}', function(err) {
+                    if (err) {
+                        return console.log(err);
+                    }
+                });
+
+                // Create html page
+                fs.readFile(pathToLayout, 'utf8', function(err, fileData) {
+                    fs.writeFile(post.name + ".html", fileData, function(err) {
+                        if (err) {
+                            return console.log(err);
+                        }
+
+                        res.writeHead(302, { Location: post.name + '.html?edit' })
+                        res.end();
+                    });
+                });
+            });
+        }
+
         //Save page data
         if (req.url === "/save") {
 

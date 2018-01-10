@@ -16,11 +16,11 @@
         <div class="dashboard-container">
             <div class="dashboard-logo"></div>
             <h1 class="dashboard-title">Qoob html page builder</h1>
-                <form onsubmit="document.location.href=$('#pageName').val()+'.html?edit';return false;" class="dashboard-form">
+                <form method="post" action="/create" class="dashboard-form">
                     <div class="dashboard-input-container" data-text=".html">
-                        <input class="dashboard-input-text" type="text" name="name" id="pageName" placeholder="Enter your website url">
+                        <input class="dashboard-input-text" type="text" name="name" placeholder="Enter your website url">
                     </div>
-                    <input class="dashboard-input-submit" type="submit" name="Create" value="Create">
+                    <input class="dashboard-input-submit" type="submit" value="Create">
                 </form>
                 
                 <h2 class="dashboard-list-title">Pages:</h2>

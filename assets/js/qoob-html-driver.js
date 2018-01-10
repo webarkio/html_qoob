@@ -180,12 +180,13 @@ QoobHtmlDriver.prototype.loadTranslations = function(cb) {
 
 /**
  * Load main menu
- * @param {Array} staticMenu
+ * @param {Array} menu
  * @returns {Array}
  */
-QoobHtmlDriver.prototype.mainMenu = function() {
+QoobHtmlDriver.prototype.mainMenu = function(menu) {
     var self = this;
-    var customData = [{
+
+    menu.push({
         "id": "save-template",
         "label": {"save_as_template": "Save as template"},
         "action": "",
@@ -200,9 +201,9 @@ QoobHtmlDriver.prototype.mainMenu = function() {
             );
         },
         "icon": ""
-    }];
+    });
 
-    return customData;
+    return menu;
 };
 
 /**
@@ -293,9 +294,13 @@ QoobHtmlDriver.prototype.fieldVideoActions = function(actions) {
                     container = videoField.$el.find('.field-video-container'),
                     file = jQuery(this).val();
 
+                if (container.hasClass('empty') || container.hasClass('upload-error')) {
+                    container.removeClass('empty upload-error upload-error__size upload-error__format');
+                }
+
                 // 30 MB limit
                 if (jQuery(this).prop('files')[0].size > 31457280) {
-                    container.addClass('upload-error');
+                    container.addClass('upload-error upload-error__size');
                 } else {
                     if (file.match(/.(mp4|ogv|webm)$/i)) {
                         var formData = new FormData();
@@ -305,16 +310,14 @@ QoobHtmlDriver.prototype.fieldVideoActions = function(actions) {
                                 var src = { 'url': url, preview: '' };
                                 videoField.changeVideo(src);
                                 parent.val('');
+
                                 if (!container.hasClass('empty-preview')) {
                                     container.addClass('empty-preview');
-                                }
-                                if (container.hasClass('upload-error')) {
-                                    container.removeClass('upload-error');
                                 }
                             }
                         });
                     } else {
-                        console.error('file format is not appropriate');
+                        container.addClass('upload-error upload-error__format');
                     }
                 }
             });
