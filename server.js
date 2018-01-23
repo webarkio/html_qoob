@@ -248,12 +248,13 @@ function onRequest(req, res) {
             // every time a file has been uploaded successfully,
             // rename it to it's orignal name
             form.on('file', function(field, file) {
-                var filePath = pathUpload + "\\" + file.name;
+                var fileName =  file.name.replace(/ /g,"_"),
+                    filePath = pathUpload + "\\" + fileName;
 
                 if (fs.existsSync(filePath)) {
-                    uploadName = Date.now() + '.' + file.name;
+                    uploadName = Date.now() + '.' + fileName;
                 } else {
-                    uploadName = file.name;
+                    uploadName = fileName;
                 }
                 fs.rename(file.path, path.join(form.uploadDir, uploadName));
             });
