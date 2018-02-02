@@ -11,7 +11,7 @@ module.exports = function(grunt) {
             folder: ['build/']
         },
         compress: {
-            full: {
+            main: {
                 options: {
                     archive: 'build/html_qoob.zip'
                 },
@@ -21,10 +21,25 @@ module.exports = function(grunt) {
                         '**',
                         '!.git/**',
                         '!node_modules/**',
+                        '!**/node_modules/**',
                         '!.gitignore',
-                        '!**/.gitignore'
+                        '!**/.gitignore',
+                        '!uploads',
+                        '!build'
                     ],
                     dest: 'html_qoob/'
+                }]
+            },
+        },
+        copy: {
+            main: {
+                files: [{
+                    expand: true,
+                    src: ['build/**'],
+                    dest: 'build/',
+                    rename: function(dest, src) {
+                        return src.replace(/.zip/gi, '.<%= pkg.version %>.zip');
+                    }
                 }]
             }
         },
@@ -43,13 +58,14 @@ module.exports = function(grunt) {
                     }
                 }
             }
-        }        
+        }
 
     });
 
     //Loading tasks
     grunt.loadNpmTasks('grunt-contrib-clean');
+    grunt.loadNpmTasks('grunt-contrib-copy');
     grunt.loadNpmTasks('grunt-localtunnel-client');
 
-    grunt.registerTask('default', ['clean', 'compress']);
+    grunt.registerTask('default', ['clean', 'compress', 'copy']);
 };
