@@ -7,13 +7,6 @@
 }
 
 @font-face {
-    font-family: 'OpenSans-ExstraBold';
-    src: url('OpenSans-ExtraBold/OpenSans-ExtraBold.ttf') format('truetype');
-    font-weight: normal;
-    font-style: normal;
-}
-
-@font-face {
     font-family: 'OpenSans-Light';
     src: url('OpenSans-Light/OpenSans-Light-webfont.eot');
     src: url('OpenSans-Light/OpenSans-Light-webfont.eot?#iefix') format('embedded-opentype'), url('OpenSans-Light/OpenSans-Light-webfont.woff') format('woff'), url('OpenSans-Light/OpenSans-Light-webfont.ttf') format('truetype'), url('OpenSans-Light/OpenSans-Light-webfont.svg#OpenSans-Light') format('svg');
@@ -22,23 +15,14 @@
 }
 
 @font-face {
-    font-family: 'OpenSans-Semibold';
-    src: url('OpenSans-Semibold/OpenSans-Semibold-webfont.eot');
-    src: url('OpenSans-Semibold/OpenSans-Semibold-webfont.eot?#iefix') format('embedded-opentype'), url('OpenSans-Semibold/OpenSans-Semibold-webfont.woff') format('woff'), url('OpenSans-Semibold/OpenSans-Semibold-webfont.ttf') format('truetype'), url('OpenSans-Semibold/OpenSans-Semibold-webfont.svg#OpenSans-Semibold') format('svg');
-    font-weight: normal;
-    font-style: normal;
-}
-
-@font-face {
     font-family: 'robotobold';
     src: url('RobotoBold/Roboto-Bold-webfont.eot');
     src: url('RobotoBold/Roboto-Bold-webfont.eot?#iefix') format('embedded-opentype'),
-         url('RobotoBold/Roboto-Bold-webfont.woff') format('woff'),
-         url('RobotoBold/Roboto-Bold-webfont.ttf') format('truetype'),
-         url('RobotoBold/Roboto-Bold-webfont.svg#robotobold') format('svg');
+    url('RobotoBold/Roboto-Bold-webfont.woff') format('woff'),
+    url('RobotoBold/Roboto-Bold-webfont.ttf') format('truetype'),
+    url('RobotoBold/Roboto-Bold-webfont.svg#robotobold') format('svg');
     font-weight: normal;
     font-style: normal;
-
 }
 
 @font-face {
@@ -61,10 +45,9 @@
     font-family: 'robotoregular';
     src: url('RobotoRegular/Roboto-Regular-webfont.eot');
     src: url('RobotoRegular/Roboto-Regular-webfont.eot?#iefix') format('embedded-opentype'),
-         url('RobotoRegular/Roboto-Regular-webfont.woff') format('woff'),
-         url('RobotoRegular/Roboto-Regular-webfont.ttf') format('truetype'),
-         url('RobotoRegular/Roboto-Regular-webfont.svg#robotoregular') format('svg');
+    url('RobotoRegular/Roboto-Regular-webfont.woff') format('woff'),
+    url('RobotoRegular/Roboto-Regular-webfont.ttf') format('truetype'),
+    url('RobotoRegular/Roboto-Regular-webfont.svg#robotoregular') format('svg');
     font-weight: normal;
     font-style: normal;
-
 }
