@@ -1,4 +1,4 @@
-# HTML Qoob Page Builder <a href="http://webark.com/qoob/">http://webark.com/qoob/</a>
+# HTML Qoob Page Builder <a href="http://qoob-builder.com/">http://qoob-builder.com/</a>
 
 ## Installation
 
@@ -10,7 +10,7 @@
 
 or
 
-1. Download from [http://webark.com/qoob/downloads/html_qoob/build/html_qoob.zip](http://webark.com/qoob/downloads/html_qoob/build/html_qoob.zip)
+1. Download from [http://qoob-builder.com/downloads/html_qoob/build/html_qoob.zip](http://qoob-builder.com/downloads/html_qoob/build/html_qoob.zip)
 2. Unzip
 3. `npm install`
 4. `npm start` or `node server`
@@ -21,4 +21,4 @@ Open browser at [http://localhost:8000/](http://localhost:8000/)
 
 ## Docs
 
-Read more at [http://webark.com/qoob/docs/](http://webark.com/qoob/docs/)
+Read more at [http://qoob-builder.com/docs/](http://qoob-builder.com/docs/)
